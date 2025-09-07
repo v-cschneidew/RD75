@@ -5,7 +5,8 @@ VIA_ENABLE = yes
 EEPROM_DRIVER = custom
 
 # Enable Unicode support for special NEO characters
-UNICODE_ENABLE = yes
+UNICODEMAP_ENABLE = yes
+UNICODE_ENABLE = no
 
 # Disable problematic features for now
 COMBO_ENABLE = no
