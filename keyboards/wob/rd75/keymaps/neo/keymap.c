@@ -461,6 +461,135 @@ const uint32_t PROGMEM unicode_map[] = {
     [288] = 0x002F  // /
 };
 
+// Table-driven dead key mapping structure
+typedef struct {
+    uint16_t dead_key;          // Dead key code (NEO_DEAD_CIRCUMFLEX, etc.)
+    uint16_t base_key;          // Base key code (KC_A, KC_E, etc.)
+    uint16_t lowercase_index;   // Unicode map index for lowercase result
+    uint16_t uppercase_index;   // Unicode map index for uppercase result
+} dead_key_mapping_t;
+
+// Dead key lookup table - replaces massive switch statements
+const dead_key_mapping_t PROGMEM dead_key_table[] = {
+    // NEO_DEAD_CIRCUMFLEX combinations
+    {NEO_DEAD_CIRCUMFLEX, KC_A, 126, 131},  // â : Â
+    {NEO_DEAD_CIRCUMFLEX, KC_E, 127, 132},  // ê : Ê
+    {NEO_DEAD_CIRCUMFLEX, KC_I, 128, 133},  // î : Î
+    {NEO_DEAD_CIRCUMFLEX, KC_O, 129, 134},  // ô : Ô
+    {NEO_DEAD_CIRCUMFLEX, KC_U, 130, 135},  // û : Û
+    {NEO_DEAD_CIRCUMFLEX, KC_SPC, 136, 136}, // ˆ : ˆ (same for both cases)
+    
+    // NEO_DEAD_ACUTE combinations
+    {NEO_DEAD_ACUTE, KC_A, 137, 147},       // á : Á
+    {NEO_DEAD_ACUTE, KC_E, 138, 148},       // é : É
+    {NEO_DEAD_ACUTE, KC_I, 139, 149},       // í : Í
+    {NEO_DEAD_ACUTE, KC_O, 140, 150},       // ó : Ó
+    {NEO_DEAD_ACUTE, KC_U, 141, 151},       // ú : Ú
+    {NEO_DEAD_ACUTE, KC_Y, 142, 152},       // ý : Ý
+    {NEO_DEAD_ACUTE, KC_C, 143, 153},       // ć : Ć
+    {NEO_DEAD_ACUTE, KC_N, 144, 154},       // ń : Ń
+    {NEO_DEAD_ACUTE, KC_S, 145, 155},       // ś : Ś
+    {NEO_DEAD_ACUTE, KC_Z, 146, 156},       // ź : Ź
+    {NEO_DEAD_ACUTE, KC_SPC, 157, 157},     // ´ : ´
+    
+    // NEO_DEAD_GRAVE combinations
+    {NEO_DEAD_GRAVE, KC_A, 158, 163},       // à : À
+    {NEO_DEAD_GRAVE, KC_E, 159, 164},       // è : È
+    {NEO_DEAD_GRAVE, KC_I, 160, 165},       // ì : Ì
+    {NEO_DEAD_GRAVE, KC_O, 161, 166},       // ò : Ò
+    {NEO_DEAD_GRAVE, KC_U, 162, 167},       // ù : Ù
+    {NEO_DEAD_GRAVE, KC_SPC, 168, 168},     // ` : `
+    
+    // NEO_DEAD_DIAERESIS combinations
+    {NEO_DEAD_DIAERESIS, KC_A, 3, 17},      // ä : Ä (reuse from layer 0/1)
+    {NEO_DEAD_DIAERESIS, KC_E, 169, 172},   // ë : Ë
+    {NEO_DEAD_DIAERESIS, KC_I, 170, 173},   // ï : Ï
+    {NEO_DEAD_DIAERESIS, KC_O, 2, 16},      // ö : Ö (reuse from layer 0/1)
+    {NEO_DEAD_DIAERESIS, KC_U, 1, 15},      // ü : Ü (reuse from layer 0/1)
+    {NEO_DEAD_DIAERESIS, KC_Y, 171, 174},   // ÿ : Ÿ
+    {NEO_DEAD_DIAERESIS, KC_SPC, 175, 175}, // ¨ : ¨
+    
+    // NEO_DEAD_TILDE combinations
+    {NEO_DEAD_TILDE, KC_A, 176, 179},       // ã : Ã
+    {NEO_DEAD_TILDE, KC_N, 177, 180},       // ñ : Ñ
+    {NEO_DEAD_TILDE, KC_O, 178, 181},       // õ : Õ
+    {NEO_DEAD_TILDE, KC_SPC, 182, 182},     // ˜ : ˜
+    
+    // NEO_DEAD_CARON combinations
+    {NEO_DEAD_CARON, KC_C, 183, 192},       // č : Č
+    {NEO_DEAD_CARON, KC_S, 184, 193},       // š : Š
+    {NEO_DEAD_CARON, KC_Z, 185, 194},       // ž : Ž
+    {NEO_DEAD_CARON, KC_N, 186, 195},       // ň : Ň
+    {NEO_DEAD_CARON, KC_R, 187, 196},       // ř : Ř
+    {NEO_DEAD_CARON, KC_D, 188, 197},       // ď : Ď
+    {NEO_DEAD_CARON, KC_T, 189, 198},       // ť : Ť
+    {NEO_DEAD_CARON, KC_L, 190, 199},       // ľ : Ľ
+    {NEO_DEAD_CARON, KC_E, 191, 200},       // ě : Ě
+    {NEO_DEAD_CARON, KC_SPC, 201, 201},     // ˇ : ˇ
+    
+    // NEO_DEAD_CEDILLA combinations
+    {NEO_DEAD_CEDILLA, KC_C, 202, 210},     // ç : Ç
+    {NEO_DEAD_CEDILLA, KC_S, 203, 211},     // ş : Ş
+    {NEO_DEAD_CEDILLA, KC_T, 204, 212},     // ţ : Ţ
+    {NEO_DEAD_CEDILLA, KC_G, 205, 213},     // ģ : Ģ
+    {NEO_DEAD_CEDILLA, KC_K, 206, 214},     // ķ : Ķ
+    {NEO_DEAD_CEDILLA, KC_L, 207, 215},     // ļ : Ļ
+    {NEO_DEAD_CEDILLA, KC_N, 208, 216},     // ņ : Ņ
+    {NEO_DEAD_CEDILLA, KC_R, 209, 217},     // ŗ : Ŗ
+    {NEO_DEAD_CEDILLA, KC_SPC, 13, 13},     // ¸ : ¸ (reuse from layer 1)
+    
+    // NEO_DEAD_MACRON combinations
+    {NEO_DEAD_MACRON, KC_A, 218, 224},      // ā : Ā
+    {NEO_DEAD_MACRON, KC_E, 219, 225},      // ē : Ē
+    {NEO_DEAD_MACRON, KC_I, 220, 226},      // ī : Ī
+    {NEO_DEAD_MACRON, KC_O, 221, 227},      // ō : Ō
+    {NEO_DEAD_MACRON, KC_U, 222, 228},      // ū : Ū
+    {NEO_DEAD_MACRON, KC_Y, 223, 229},      // ȳ : Ȳ
+    {NEO_DEAD_MACRON, KC_SPC, 230, 230},    // ¯ : ¯
+    
+    // NEO_DEAD_BREVE combinations
+    {NEO_DEAD_BREVE, KC_A, 231, 237},       // ă : Ă
+    {NEO_DEAD_BREVE, KC_E, 232, 238},       // ĕ : Ĕ
+    {NEO_DEAD_BREVE, KC_G, 233, 239},       // ğ : Ğ
+    {NEO_DEAD_BREVE, KC_I, 234, 240},       // ĭ : Ĭ
+    {NEO_DEAD_BREVE, KC_O, 235, 241},       // ŏ : Ŏ
+    {NEO_DEAD_BREVE, KC_U, 236, 242},       // ŭ : Ŭ
+    {NEO_DEAD_BREVE, KC_SPC, 243, 243},     // ˘ : ˘
+    
+    // NEO_DEAD_OGONEK combinations
+    {NEO_DEAD_OGONEK, KC_A, 244, 249},      // ą : Ą
+    {NEO_DEAD_OGONEK, KC_E, 245, 250},      // ę : Ę
+    {NEO_DEAD_OGONEK, KC_I, 246, 251},      // į : Į
+    {NEO_DEAD_OGONEK, KC_O, 247, 252},      // ǫ : Ǫ
+    {NEO_DEAD_OGONEK, KC_U, 248, 253},      // ų : Ų
+    {NEO_DEAD_OGONEK, KC_SPC, 254, 254},    // ˛ : ˛
+    
+    // NEO_DEAD_RING_ABOVE combinations
+    {NEO_DEAD_RING_ABOVE, KC_A, 255, 259},  // å : Å
+    {NEO_DEAD_RING_ABOVE, KC_U, 256, 260},  // ů : Ů
+    {NEO_DEAD_RING_ABOVE, KC_W, 257, 261},  // ẘ : W̊
+    {NEO_DEAD_RING_ABOVE, KC_Y, 258, 261},  // ẙ : Y̊
+    {NEO_DEAD_RING_ABOVE, KC_SPC, 261, 261}, // ˚ : ˚
+    
+    // NEO_DEAD_STROKE combinations
+    {NEO_DEAD_STROKE, KC_L, 262, 275},      // ł : Ł
+    {NEO_DEAD_STROKE, KC_D, 263, 276},      // đ : Đ
+    {NEO_DEAD_STROKE, KC_H, 264, 277},      // ħ : Ħ
+    {NEO_DEAD_STROKE, KC_T, 265, 278},      // ŧ : Ŧ
+    {NEO_DEAD_STROKE, KC_O, 266, 279},      // ø : Ø
+    {NEO_DEAD_STROKE, KC_B, 267, 280},      // ƀ : Ƀ
+    {NEO_DEAD_STROKE, KC_G, 268, 281},      // ǥ : Ǥ
+    {NEO_DEAD_STROKE, KC_I, 269, 282},      // ɨ : Ɨ
+    {NEO_DEAD_STROKE, KC_J, 270, 283},      // ɉ : Ɉ
+    {NEO_DEAD_STROKE, KC_P, 271, 284},      // ᵽ : Ᵽ
+    {NEO_DEAD_STROKE, KC_R, 272, 285},      // ɍ : Ɍ
+    {NEO_DEAD_STROKE, KC_Y, 273, 286},      // ɏ : Ɏ
+    {NEO_DEAD_STROKE, KC_Z, 274, 287},      // ƶ : Ƶ
+    {NEO_DEAD_STROKE, KC_SPC, 288, 288},    // / : /
+};
+
+#define DEAD_KEY_TABLE_SIZE (sizeof(dead_key_table) / sizeof(dead_key_mapping_t))
+
 // Enhanced dead key state management - fixes race conditions and lifecycle issues
 typedef struct {
     uint16_t keycode;           // Which dead key is active (0 = none)
@@ -489,211 +618,57 @@ bool is_dead_key_active(void) {
     return dead_key_state.keycode != 0;
 }
 
-// Dead key processing - Complete implementation with race condition protection
+// Table-driven dead key lookup function
+uint16_t find_dead_key_unicode_index(uint16_t dead_key, uint16_t base_key, bool is_uppercase) {
+    // Linear search through the dead key table
+    // For better performance, this could be replaced with binary search or hash table
+    for (uint16_t i = 0; i < DEAD_KEY_TABLE_SIZE; i++) {
+        const dead_key_mapping_t *mapping = &dead_key_table[i];
+        if (pgm_read_word(&mapping->dead_key) == dead_key &&
+            pgm_read_word(&mapping->base_key) == base_key) {
+            // Found matching combination
+            if (is_uppercase) {
+                return pgm_read_word(&mapping->uppercase_index);
+            } else {
+                return pgm_read_word(&mapping->lowercase_index);
+            }
+        }
+    }
+    
+    // No matching combination found - return fallback dead key character
+    // This handles cases where user types unsupported base key after dead key
+    for (uint16_t i = 0; i < DEAD_KEY_TABLE_SIZE; i++) {
+        const dead_key_mapping_t *mapping = &dead_key_table[i];
+        if (pgm_read_word(&mapping->dead_key) == dead_key &&
+            pgm_read_word(&mapping->base_key) == KC_SPC) {
+            // Return the dead key character itself (space combination)
+            return pgm_read_word(&mapping->lowercase_index);
+        }
+    }
+    
+    // Ultimate fallback - should never happen with proper table
+    return 0;
+}
+
+// Dead key processing - Table-driven implementation with race condition protection
 void send_dead_key_combination(uint16_t dead_key, uint16_t base_key) {
     // Use cached shift state from when dead key was pressed - prevents race conditions
     bool is_uppercase = dead_key_state.shift_state;
     
-    switch (dead_key) {
-        case NEO_DEAD_CIRCUMFLEX:
-            switch (base_key) {
-                case KC_A: register_unicode(is_uppercase ? 131 : 126); break; // Â : â
-                case KC_E: register_unicode(is_uppercase ? 132 : 127); break; // Ê : ê
-                case KC_I: register_unicode(is_uppercase ? 133 : 128); break; // Î : î
-                case KC_O: register_unicode(is_uppercase ? 134 : 129); break; // Ô : ô
-                case KC_U: register_unicode(is_uppercase ? 135 : 130); break; // Û : û
-                case KC_SPC: register_unicode(136); break; // ˆ
-                default:
-                    register_unicode(136); // ˆ
-                    tap_code(base_key);
-                    break;
-            }
-            break;
-            
-        case NEO_DEAD_ACUTE:
-            switch (base_key) {
-                case KC_A: register_unicode(is_uppercase ? 147 : 137); break; // Á : á
-                case KC_E: register_unicode(is_uppercase ? 148 : 138); break; // É : é
-                case KC_I: register_unicode(is_uppercase ? 149 : 139); break; // Í : í
-                case KC_O: register_unicode(is_uppercase ? 150 : 140); break; // Ó : ó
-                case KC_U: register_unicode(is_uppercase ? 151 : 141); break; // Ú : ú
-                case KC_Y: register_unicode(is_uppercase ? 152 : 142); break; // Ý : ý
-                case KC_C: register_unicode(is_uppercase ? 153 : 143); break; // Ć : ć
-                case KC_N: register_unicode(is_uppercase ? 154 : 144); break; // Ń : ń
-                case KC_S: register_unicode(is_uppercase ? 155 : 145); break; // Ś : ś
-                case KC_Z: register_unicode(is_uppercase ? 156 : 146); break; // Ź : ź
-                case KC_SPC: register_unicode(157); break; // ´
-                default:
-                    register_unicode(157); // ´
-                    tap_code(base_key);
-                    break;
-            }
-            break;
-            
-        case NEO_DEAD_GRAVE:
-            switch (base_key) {
-                case KC_A: register_unicode(is_uppercase ? 163 : 158); break; // À : à
-                case KC_E: register_unicode(is_uppercase ? 164 : 159); break; // È : è
-                case KC_I: register_unicode(is_uppercase ? 165 : 160); break; // Ì : ì
-                case KC_O: register_unicode(is_uppercase ? 166 : 161); break; // Ò : ò
-                case KC_U: register_unicode(is_uppercase ? 167 : 162); break; // Ù : ù
-                case KC_SPC: register_unicode(168); break; // `
-                default:
-                    register_unicode(168); // `
-                    tap_code(base_key);
-                    break;
-            }
-            break;
-            
-        case NEO_DEAD_DIAERESIS:
-            switch (base_key) {
-                case KC_A: register_unicode(is_uppercase ? 17 : 3); break; // Ä : ä (reuse from layer 0/1)
-                case KC_E: register_unicode(is_uppercase ? 172 : 169); break; // Ë : ë
-                case KC_I: register_unicode(is_uppercase ? 173 : 170); break; // Ï : ï
-                case KC_O: register_unicode(is_uppercase ? 16 : 2); break; // Ö : ö (reuse from layer 0/1)
-                case KC_U: register_unicode(is_uppercase ? 15 : 1); break; // Ü : ü (reuse from layer 0/1)
-                case KC_Y: register_unicode(is_uppercase ? 174 : 171); break; // Ÿ : ÿ
-                case KC_SPC: register_unicode(175); break; // ¨
-                default:
-                    register_unicode(175); // ¨
-                    tap_code(base_key);
-                    break;
-            }
-            break;
-            
-        case NEO_DEAD_TILDE:
-            switch (base_key) {
-                case KC_A: register_unicode(is_uppercase ? 179 : 176); break; // Ã : ã
-                case KC_N: register_unicode(is_uppercase ? 180 : 177); break; // Ñ : ñ
-                case KC_O: register_unicode(is_uppercase ? 181 : 178); break; // Õ : õ
-                case KC_SPC: register_unicode(182); break; // ˜
-                default:
-                    register_unicode(182); // ˜
-                    tap_code(base_key);
-                    break;
-            }
-            break;
-            
-        case NEO_DEAD_CARON:
-            switch (base_key) {
-                case KC_C: register_unicode(is_uppercase ? 192 : 183); break; // Č : č
-                case KC_S: register_unicode(is_uppercase ? 193 : 184); break; // Š : š
-                case KC_Z: register_unicode(is_uppercase ? 194 : 185); break; // Ž : ž
-                case KC_N: register_unicode(is_uppercase ? 195 : 186); break; // Ň : ň
-                case KC_R: register_unicode(is_uppercase ? 196 : 187); break; // Ř : ř
-                case KC_D: register_unicode(is_uppercase ? 197 : 188); break; // Ď : ď
-                case KC_T: register_unicode(is_uppercase ? 198 : 189); break; // Ť : ť
-                case KC_L: register_unicode(is_uppercase ? 199 : 190); break; // Ľ : ľ
-                case KC_E: register_unicode(is_uppercase ? 200 : 191); break; // Ě : ě
-                case KC_SPC: register_unicode(201); break; // ˇ
-                default:
-                    register_unicode(201); // ˇ
-                    tap_code(base_key);
-                    break;
-            }
-            break;
-            
-        case NEO_DEAD_CEDILLA:
-            switch (base_key) {
-                case KC_C: register_unicode(is_uppercase ? 210 : 202); break; // Ç : ç
-                case KC_S: register_unicode(is_uppercase ? 211 : 203); break; // Ş : ş
-                case KC_T: register_unicode(is_uppercase ? 212 : 204); break; // Ţ : ţ
-                case KC_G: register_unicode(is_uppercase ? 213 : 205); break; // Ģ : ģ
-                case KC_K: register_unicode(is_uppercase ? 214 : 206); break; // Ķ : ķ
-                case KC_L: register_unicode(is_uppercase ? 215 : 207); break; // Ļ : ļ
-                case KC_N: register_unicode(is_uppercase ? 216 : 208); break; // Ņ : ņ
-                case KC_R: register_unicode(is_uppercase ? 217 : 209); break; // Ŗ : ŗ
-                case KC_SPC: register_unicode(13); break; // ¸ (reuse from layer 1)
-                default:
-                    register_unicode(13); // ¸
-                    tap_code(base_key);
-                    break;
-            }
-            break;
-            
-        case NEO_DEAD_MACRON:
-            switch (base_key) {
-                case KC_A: register_unicode(is_uppercase ? 224 : 218); break; // Ā : ā
-                case KC_E: register_unicode(is_uppercase ? 225 : 219); break; // Ē : ē
-                case KC_I: register_unicode(is_uppercase ? 226 : 220); break; // Ī : ī
-                case KC_O: register_unicode(is_uppercase ? 227 : 221); break; // Ō : ō
-                case KC_U: register_unicode(is_uppercase ? 228 : 222); break; // Ū : ū
-                case KC_Y: register_unicode(is_uppercase ? 229 : 223); break; // Ȳ : ȳ
-                case KC_SPC: register_unicode(230); break; // ¯
-                default:
-                    register_unicode(230); // ¯
-                    tap_code(base_key);
-                    break;
-            }
-            break;
-            
-        case NEO_DEAD_BREVE:
-            switch (base_key) {
-                case KC_A: register_unicode(is_uppercase ? 237 : 231); break; // Ă : ă
-                case KC_E: register_unicode(is_uppercase ? 238 : 232); break; // Ĕ : ĕ
-                case KC_G: register_unicode(is_uppercase ? 239 : 233); break; // Ğ : ğ
-                case KC_I: register_unicode(is_uppercase ? 240 : 234); break; // Ĭ : ĭ
-                case KC_O: register_unicode(is_uppercase ? 241 : 235); break; // Ŏ : ŏ
-                case KC_U: register_unicode(is_uppercase ? 242 : 236); break; // Ŭ : ŭ
-                case KC_SPC: register_unicode(243); break; // ˘
-                default:
-                    register_unicode(243); // ˘
-                    tap_code(base_key);
-                    break;
-            }
-            break;
-            
-        case NEO_DEAD_OGONEK:
-            switch (base_key) {
-                case KC_A: register_unicode(is_uppercase ? 249 : 244); break; // Ą : ą
-                case KC_E: register_unicode(is_uppercase ? 250 : 245); break; // Ę : ę
-                case KC_I: register_unicode(is_uppercase ? 251 : 246); break; // Į : į
-                case KC_O: register_unicode(is_uppercase ? 252 : 247); break; // Ǫ : ǫ
-                case KC_U: register_unicode(is_uppercase ? 253 : 248); break; // Ų : ų
-                case KC_SPC: register_unicode(254); break; // ˛
-                default:
-                    register_unicode(254); // ˛
-                    tap_code(base_key);
-                    break;
-            }
-            break;
-            
-        case NEO_DEAD_RING_ABOVE:
-            switch (base_key) {
-                case KC_A: register_unicode(is_uppercase ? 259 : 255); break; // Å : å
-                case KC_U: register_unicode(is_uppercase ? 260 : 256); break; // Ů : ů
-                case KC_W: register_unicode(is_uppercase ? 261 : 257); break; // W̊ : ẘ
-                case KC_Y: register_unicode(is_uppercase ? 261 : 258); break; // Y̊ : ẙ
-                case KC_SPC: register_unicode(261); break; // ˚
-                default:
-                    register_unicode(261); // ˚
-                    tap_code(base_key);
-                    break;
-            }
-            break;
-            
-        case NEO_DEAD_STROKE:
-            switch (base_key) {
-                case KC_L: register_unicode(is_uppercase ? 275 : 262); break; // Ł : ł
-                case KC_D: register_unicode(is_uppercase ? 276 : 263); break; // Đ : đ
-                case KC_H: register_unicode(is_uppercase ? 277 : 264); break; // Ħ : ħ
-                case KC_T: register_unicode(is_uppercase ? 278 : 265); break; // Ŧ : ŧ
-                case KC_O: register_unicode(is_uppercase ? 279 : 266); break; // Ø : ø
-                case KC_B: register_unicode(is_uppercase ? 280 : 267); break; // Ƀ : ƀ
-                case KC_G: register_unicode(is_uppercase ? 281 : 268); break; // Ǥ : ǥ
-                case KC_I: register_unicode(is_uppercase ? 282 : 269); break; // Ɨ : ɨ
-                case KC_J: register_unicode(is_uppercase ? 283 : 270); break; // Ɉ : ɉ
-                case KC_P: register_unicode(is_uppercase ? 284 : 271); break; // Ᵽ : ᵽ
-                case KC_R: register_unicode(is_uppercase ? 285 : 272); break; // Ɍ : ɍ
-                case KC_Y: register_unicode(is_uppercase ? 286 : 273); break; // Ɏ : ɏ
-                case KC_Z: register_unicode(is_uppercase ? 287 : 274); break; // Ƶ : ƶ
-                case KC_SPC: register_unicode(288); break; // /
-                default:
-                    register_unicode(288); // /
-                    tap_code(base_key);
-                    break;
-            }
-            break;
+    // Look up the Unicode index using the table
+    uint16_t unicode_index = find_dead_key_unicode_index(dead_key, base_key, is_uppercase);
+    
+    if (unicode_index != 0) {
+        // Found valid combination - send the Unicode character
+        register_unicode(unicode_index);
+    } else {
+        // No valid combination found - send dead key character + base key
+        uint16_t fallback_index = find_dead_key_unicode_index(dead_key, KC_SPC, false);
+        if (fallback_index != 0) {
+            register_unicode(fallback_index);
+        }
+        // Also send the base key that was pressed
+        tap_code(base_key);
     }
 }
 
