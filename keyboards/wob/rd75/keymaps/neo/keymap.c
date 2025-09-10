@@ -18,8 +18,10 @@
  */
 #include QMK_KEYBOARD_H
 #include "../../../lib/rdr_lib/rdr_common.h"
-// Hardware-level NEO implementation - no language-specific headers needed
-// All characters are sent directly, compatible with US keyboard layout on any OS
+#include "keymap_german.h"
+// Hardware-level NEO implementation with German layout optimization
+// Basic German characters (ä,ö,ü,ß) use German layout keycodes for better performance
+// All other characters are sent directly via Unicode for maximum compatibility
 
 // Custom keycodes for NEO layer switching and dead keys
 enum custom_keycodes {
@@ -56,9 +58,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_tkl_ansi(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_DEL,  KC_HOME, KC_MUTE,
         NEO_DEAD_CIRCUMFLEX, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, NEO_DEAD_GRAVE, KC_GRV, KC_BSPC, KC_END,
-        KC_TAB,  KC_X,    KC_V,    KC_L,    KC_C,    KC_W,     KC_K,    KC_H,    KC_G,    KC_F,    KC_Q,     UM(0), NEO_DEAD_ACUTE, KC_BSLS, KC_PGUP,
+        KC_TAB,  KC_X,    KC_V,    KC_L,    KC_C,    KC_W,     KC_K,    KC_H,    KC_G,    KC_F,    KC_Q,     DE_SS, NEO_DEAD_ACUTE, KC_BSLS, KC_PGUP,
         NEO_MOD3, KC_U,   KC_I,    KC_A,    KC_E,    KC_O,     KC_S,    KC_N,    KC_R,    KC_T,    KC_D,     KC_Y,     NEO_MOD3, KC_ENT,  KC_PGDN,
-        KC_LSFT,          UM(1), UM(2), UM(3), KC_P, KC_Z, KC_B, KC_M, KC_COMM, KC_DOT, KC_J, KC_RSFT, KC_UP,
+        KC_LSFT,          DE_UDIA, DE_ODIA, DE_ADIA, KC_P, KC_Z, KC_B, KC_M, KC_COMM, KC_DOT, KC_J, KC_RSFT, KC_UP,
         KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                              NEO_FN,   NEO_MOD4,           KC_LEFT,  KC_DOWN, KC_RGHT
     ),
 
@@ -70,9 +72,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [1] = LAYOUT_tkl_ansi(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_DEL,  KC_HOME, KC_MUTE,
         NEO_DEAD_CARON, UM(4), UM(5), UM(6), UM(7), UM(8), KC_DLR, UM(9), UM(10), UM(11), UM(12), NEO_DEAD_CEDILLA, UM(13), KC_BSPC, KC_END,
-        S(KC_TAB), S(KC_X), S(KC_V), S(KC_L), S(KC_C), S(KC_W), S(KC_K), S(KC_H), S(KC_G), S(KC_F), S(KC_Q), UM(14), NEO_DEAD_TILDE, KC_BSLS, KC_PGUP,
+        S(KC_TAB), S(KC_X), S(KC_V), S(KC_L), S(KC_C), S(KC_W), S(KC_K), S(KC_H), S(KC_G), S(KC_F), S(KC_Q), S(DE_SS), NEO_DEAD_TILDE, KC_BSLS, KC_PGUP,
         KC_TRNS, S(KC_U), S(KC_I), S(KC_A), S(KC_E), S(KC_O), S(KC_S), S(KC_N), S(KC_R), S(KC_T), S(KC_D), S(KC_Y), KC_TRNS, KC_ENT, KC_PGDN,
-        KC_LSFT,          UM(15), UM(16), UM(17), S(KC_P), S(KC_Z), S(KC_B), S(KC_M), UM(18), UM(19), S(KC_J), KC_RSFT, KC_UP,
+        KC_LSFT,          S(DE_UDIA), S(DE_ODIA), S(DE_ADIA), S(KC_P), S(KC_Z), S(KC_B), S(KC_M), UM(18), UM(19), S(KC_J), KC_RSFT, KC_UP,
         KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                              KC_TRNS, KC_RCTL,           KC_LEFT,  KC_DOWN, KC_RGHT
     ),
 
@@ -119,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, UM(53), KC_SPC, UM(54), UM(55), UM(56), UM(57), UM(58), UM(59), UM(60), UM(61), UM(62), UM(63), KC_BSLS, KC_PGUP,
         KC_TRNS, KC_SPC, UM(64), UM(65), UM(66), UM(67), UM(68), UM(69), UM(70), UM(71), UM(72), UM(73), KC_TRNS, KC_ENT, KC_PGDN,
         KC_LSFT,          KC_SPC, UM(74), UM(75), UM(76), UM(77), UM(78), UM(79), UM(80), UM(81), UM(82), KC_RSFT, KC_UP,
-        KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                              KC_TRNS, KC_RCTL,            KC_LEFT,  KC_DOWN, KC_RGHT
+        KC_LCTL, KC_LGUI, KC_LALT,                   UM(290),                             KC_TRNS, KC_RCTL,            KC_LEFT,  KC_DOWN, KC_RGHT
     ),
 
     // NEO Ebene 6 (Mod3+Mod4 math symbols) - Layer 5 - HYBRID APPROACH
@@ -134,20 +136,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, UM(94), UM(95), UM(96), UM(97), UM(98), UM(99), UM(100), UM(101), UM(102), UM(103), UM(104), NEO_DEAD_BREVE, KC_BSLS, KC_PGUP,
         KC_TRNS, UM(105), UM(106), UM(107), UM(108), UM(109), UM(110), UM(111), UM(112), UM(113), UM(114), UM(115), KC_TRNS, KC_ENT, KC_PGDN,
         KC_LSFT,          UM(116), UM(117), UM(118), UM(119), UM(120), UM(121), UM(122), UM(123), UM(124), UM(125), KC_RSFT, KC_UP,
-        KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                              KC_TRNS, KC_RCTL,            KC_LEFT,  KC_DOWN, KC_RGHT
+        KC_LCTL, KC_LGUI, KC_LALT,                   UM(289),                             KC_TRNS, KC_RCTL,            KC_LEFT,  KC_DOWN, KC_RGHT
     ),
 
     // NEO Function Layer (Complete RD75 Features + Unicode Control) - Layer 6
     // HYBRID DESIGN: All original RD75 functionality + Unicode mode switching
     // F-Row: Complete multimedia keys (Web Home, Mail, Calculator, Media Select)
     // Numbers: Full wireless switching (BLE1, BLE2, BLE3, 2.4G, USB)
-    // QWERTY: Unicode mode switching (Q=Windows, W=Mac, E=Linux)
+    // QWERTY: Unicode mode switching (Q=WinCompose, W=Mac, E=Linux)
     // ASDF: Layer switching + RGB controls
     // All RGB, Logo, Battery, and system controls preserved
     [6] = LAYOUT_tkl_ansi(
         KC_ESC,  KC_BRID, KC_BRIU, KC_WHOM, KC_MAIL, KC_CALC,  KC_MSEL, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,  KC_VOLD,  KC_VOLU,  RGB_TOG, KC_HOME, KC_MUTE,
         KC_GRV,  MD_BLE1, MD_BLE2, MD_BLE3, MD_24G,  MD_USB,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     LOGO_VAD, LOGO_VAI, QK_BAT,  EE_CLR,
-        KC_TAB,  UC_WIN,  UC_MAC,  UC_LINX, KC_R,    KC_T,     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     LOGO_SPD, LOGO_SPI, RGB_MOD, RGB_SAI,
+        KC_TAB,  UC_WINC, UC_MAC,  UC_LINX, KC_R,    KC_T,     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     LOGO_SPD, LOGO_SPI, RGB_MOD, RGB_SAI,
         KC_CAPS, TO(0),   TO(1),   RGB_VAD, RGB_VAI, KC_G,     KC_H,    KC_J,    KC_K,    KC_L,    LOGO_SAD, LOGO_SAI, RGB_MOD,  RGB_HUI, RGB_SAD,
         KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,    SIX_N,   KC_M,    KC_COMM, KC_DOT,   KC_SLSH,  LOGO_HUI, RGB_VAI,
         TEST_CL, QK_WLO,  KC_LALT,                   LOGO_MOD,                            KC_TRNS, KC_TRNS,            RGB_SPD,  RGB_VAD, RGB_SPI
@@ -157,11 +159,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // UNICODEMAP for optimized Unicode input across Windows, Mac, and Linux
 // Complete systematic extraction of ALL Unicode characters used in the keymap
 const uint32_t PROGMEM unicode_map[] = {
-    // Layer 0 (Base) - UC() calls
-    [0] = 0x00DF,   // ß (UC(0x00DF))
-    [1] = 0x00FC,   // ü (UC(0x00FC))
-    [2] = 0x00F6,   // ö (UC(0x00F6))
-    [3] = 0x00E4,   // ä (UC(0x00E4))
+    // Layer 0 (Base) - German characters use DE_ keycodes for direct typing
+    // But Unicode entries kept for dead key combinations (NEO_DEAD_DIAERESIS)
+    [0] = 0x00DF,   // ß - kept for dead key compatibility
+    [1] = 0x00FC,   // ü - kept for dead key compatibility
+    [2] = 0x00F6,   // ö - kept for dead key compatibility
+    [3] = 0x00E4,   // ä - kept for dead key compatibility
     
     // Layer 1 (Shift) - UC() calls
     [4] = 0x00B0,   // ° (UC(0x00B0))
@@ -174,10 +177,10 @@ const uint32_t PROGMEM unicode_map[] = {
     [11] = 0x201C,  // " (UC(0x201C))
     [12] = 0x201D,  // " (UC(0x201D))
     [13] = 0x00B8,  // ¸ (UC(0x00B8))
-    [14] = 0x1E9E,  // ẞ (UC(0x1E9E))
-    [15] = 0x00DC,  // Ü (UC(0x00DC))
-    [16] = 0x00D6,  // Ö (UC(0x00D6))
-    [17] = 0x00C4,  // Ä (UC(0x00C4))
+    [14] = 0x1E9E,  // ẞ - kept for dead key compatibility
+    [15] = 0x00DC,  // Ü - kept for dead key compatibility
+    [16] = 0x00D6,  // Ö - kept for dead key compatibility
+    [17] = 0x00C4,  // Ä - kept for dead key compatibility
     [18] = 0x2013,  // – (UC(0x2013))
     [19] = 0x2022,  // • (UC(0x2022))
     
@@ -458,7 +461,9 @@ const uint32_t PROGMEM unicode_map[] = {
     [285] = 0x024C, // Ɍ
     [286] = 0x024E, // Ɏ
     [287] = 0x01B5, // Ƶ
-    [288] = 0x002F  // /
+    [288] = 0x002F, // /
+    [289] = 0x202F, // Narrow No-Break Space (Schmales geschütztes Leerzeichen)
+    [290] = 0x00A0  // No-Break Space
 };
 
 // Table-driven dead key mapping structure
@@ -469,123 +474,124 @@ typedef struct {
     uint16_t uppercase_index;   // Unicode map index for uppercase result
 } dead_key_mapping_t;
 
-// Dead key lookup table - replaces massive switch statements
+// Dead key lookup table - SORTED by composite key (dead_key << 16 | base_key) for binary search
+// Composite key calculation: (dead_key << 16) | base_key - ensures proper ordering for O(log n) lookup
 const dead_key_mapping_t PROGMEM dead_key_table[] = {
     // NEO_DEAD_CIRCUMFLEX combinations
-    {NEO_DEAD_CIRCUMFLEX, KC_A, 126, 131},  // â : Â
-    {NEO_DEAD_CIRCUMFLEX, KC_E, 127, 132},  // ê : Ê
-    {NEO_DEAD_CIRCUMFLEX, KC_I, 128, 133},  // î : Î
-    {NEO_DEAD_CIRCUMFLEX, KC_O, 129, 134},  // ô : Ô
-    {NEO_DEAD_CIRCUMFLEX, KC_U, 130, 135},  // û : Û
-    {NEO_DEAD_CIRCUMFLEX, KC_SPC, 136, 136}, // ˆ : ˆ (same for both cases)
-    
-    // NEO_DEAD_ACUTE combinations
-    {NEO_DEAD_ACUTE, KC_A, 137, 147},       // á : Á
-    {NEO_DEAD_ACUTE, KC_E, 138, 148},       // é : É
-    {NEO_DEAD_ACUTE, KC_I, 139, 149},       // í : Í
-    {NEO_DEAD_ACUTE, KC_O, 140, 150},       // ó : Ó
-    {NEO_DEAD_ACUTE, KC_U, 141, 151},       // ú : Ú
-    {NEO_DEAD_ACUTE, KC_Y, 142, 152},       // ý : Ý
-    {NEO_DEAD_ACUTE, KC_C, 143, 153},       // ć : Ć
-    {NEO_DEAD_ACUTE, KC_N, 144, 154},       // ń : Ń
-    {NEO_DEAD_ACUTE, KC_S, 145, 155},       // ś : Ś
-    {NEO_DEAD_ACUTE, KC_Z, 146, 156},       // ź : Ź
-    {NEO_DEAD_ACUTE, KC_SPC, 157, 157},     // ´ : ´
-    
+    {NEO_DEAD_CIRCUMFLEX, KC_A, 126, 131}, // â : Â
+    {NEO_DEAD_CIRCUMFLEX, KC_E, 127, 132}, // ê : Ê
+    {NEO_DEAD_CIRCUMFLEX, KC_I, 128, 133}, // î : Î
+    {NEO_DEAD_CIRCUMFLEX, KC_O, 129, 134}, // ô : Ô
+    {NEO_DEAD_CIRCUMFLEX, KC_U, 130, 135}, // û : Û
+    {NEO_DEAD_CIRCUMFLEX, KC_SPC, 136, 136}, // ˆ : ˆ
+
     // NEO_DEAD_GRAVE combinations
-    {NEO_DEAD_GRAVE, KC_A, 158, 163},       // à : À
-    {NEO_DEAD_GRAVE, KC_E, 159, 164},       // è : È
-    {NEO_DEAD_GRAVE, KC_I, 160, 165},       // ì : Ì
-    {NEO_DEAD_GRAVE, KC_O, 161, 166},       // ò : Ò
-    {NEO_DEAD_GRAVE, KC_U, 162, 167},       // ù : Ù
-    {NEO_DEAD_GRAVE, KC_SPC, 168, 168},     // ` : `
-    
+    {NEO_DEAD_GRAVE, KC_A, 158, 163}, // à : À
+    {NEO_DEAD_GRAVE, KC_E, 159, 164}, // è : È
+    {NEO_DEAD_GRAVE, KC_I, 160, 165}, // ì : Ì
+    {NEO_DEAD_GRAVE, KC_O, 161, 166}, // ò : Ò
+    {NEO_DEAD_GRAVE, KC_U, 162, 167}, // ù : Ù
+    {NEO_DEAD_GRAVE, KC_SPC, 168, 168}, // ` : `
+
+    // NEO_DEAD_ACUTE combinations
+    {NEO_DEAD_ACUTE, KC_A, 137, 147}, // á : Á
+    {NEO_DEAD_ACUTE, KC_C, 143, 153}, // ć : Ć
+    {NEO_DEAD_ACUTE, KC_E, 138, 148}, // é : É
+    {NEO_DEAD_ACUTE, KC_I, 139, 149}, // í : Í
+    {NEO_DEAD_ACUTE, KC_N, 144, 154}, // ń : Ń
+    {NEO_DEAD_ACUTE, KC_O, 140, 150}, // ó : Ó
+    {NEO_DEAD_ACUTE, KC_S, 145, 155}, // ś : Ś
+    {NEO_DEAD_ACUTE, KC_U, 141, 151}, // ú : Ú
+    {NEO_DEAD_ACUTE, KC_Y, 142, 152}, // ý : Ý
+    {NEO_DEAD_ACUTE, KC_Z, 146, 156}, // ź : Ź
+    {NEO_DEAD_ACUTE, KC_SPC, 157, 157}, // ´ : ´
+
     // NEO_DEAD_DIAERESIS combinations
-    {NEO_DEAD_DIAERESIS, KC_A, 3, 17},      // ä : Ä (reuse from layer 0/1)
-    {NEO_DEAD_DIAERESIS, KC_E, 169, 172},   // ë : Ë
-    {NEO_DEAD_DIAERESIS, KC_I, 170, 173},   // ï : Ï
-    {NEO_DEAD_DIAERESIS, KC_O, 2, 16},      // ö : Ö (reuse from layer 0/1)
-    {NEO_DEAD_DIAERESIS, KC_U, 1, 15},      // ü : Ü (reuse from layer 0/1)
-    {NEO_DEAD_DIAERESIS, KC_Y, 171, 174},   // ÿ : Ÿ
+    {NEO_DEAD_DIAERESIS, KC_A, 3, 17}, // ä : Ä (reuse from layer 0/1)
+    {NEO_DEAD_DIAERESIS, KC_E, 169, 172}, // ë : Ë
+    {NEO_DEAD_DIAERESIS, KC_I, 170, 173}, // ï : Ï
+    {NEO_DEAD_DIAERESIS, KC_O, 2, 16}, // ö : Ö (reuse from layer 0/1)
+    {NEO_DEAD_DIAERESIS, KC_U, 1, 15}, // ü : Ü (reuse from layer 0/1)
+    {NEO_DEAD_DIAERESIS, KC_Y, 171, 174}, // ÿ : Ÿ
     {NEO_DEAD_DIAERESIS, KC_SPC, 175, 175}, // ¨ : ¨
-    
+
     // NEO_DEAD_TILDE combinations
-    {NEO_DEAD_TILDE, KC_A, 176, 179},       // ã : Ã
-    {NEO_DEAD_TILDE, KC_N, 177, 180},       // ñ : Ñ
-    {NEO_DEAD_TILDE, KC_O, 178, 181},       // õ : Õ
-    {NEO_DEAD_TILDE, KC_SPC, 182, 182},     // ˜ : ˜
-    
+    {NEO_DEAD_TILDE, KC_A, 176, 179}, // ã : Ã
+    {NEO_DEAD_TILDE, KC_N, 177, 180}, // ñ : Ñ
+    {NEO_DEAD_TILDE, KC_O, 178, 181}, // õ : Õ
+    {NEO_DEAD_TILDE, KC_SPC, 182, 182}, // ˜ : ˜
+
     // NEO_DEAD_CARON combinations
-    {NEO_DEAD_CARON, KC_C, 183, 192},       // č : Č
-    {NEO_DEAD_CARON, KC_S, 184, 193},       // š : Š
-    {NEO_DEAD_CARON, KC_Z, 185, 194},       // ž : Ž
-    {NEO_DEAD_CARON, KC_N, 186, 195},       // ň : Ň
-    {NEO_DEAD_CARON, KC_R, 187, 196},       // ř : Ř
-    {NEO_DEAD_CARON, KC_D, 188, 197},       // ď : Ď
-    {NEO_DEAD_CARON, KC_T, 189, 198},       // ť : Ť
-    {NEO_DEAD_CARON, KC_L, 190, 199},       // ľ : Ľ
-    {NEO_DEAD_CARON, KC_E, 191, 200},       // ě : Ě
-    {NEO_DEAD_CARON, KC_SPC, 201, 201},     // ˇ : ˇ
-    
+    {NEO_DEAD_CARON, KC_C, 183, 192}, // č : Č
+    {NEO_DEAD_CARON, KC_D, 188, 197}, // ď : Ď
+    {NEO_DEAD_CARON, KC_E, 191, 200}, // ě : Ě
+    {NEO_DEAD_CARON, KC_L, 190, 199}, // ľ : Ľ
+    {NEO_DEAD_CARON, KC_N, 186, 195}, // ň : Ň
+    {NEO_DEAD_CARON, KC_R, 187, 196}, // ř : Ř
+    {NEO_DEAD_CARON, KC_S, 184, 193}, // š : Š
+    {NEO_DEAD_CARON, KC_T, 189, 198}, // ť : Ť
+    {NEO_DEAD_CARON, KC_Z, 185, 194}, // ž : Ž
+    {NEO_DEAD_CARON, KC_SPC, 201, 201}, // ˇ : ˇ
+
     // NEO_DEAD_CEDILLA combinations
-    {NEO_DEAD_CEDILLA, KC_C, 202, 210},     // ç : Ç
-    {NEO_DEAD_CEDILLA, KC_S, 203, 211},     // ş : Ş
-    {NEO_DEAD_CEDILLA, KC_T, 204, 212},     // ţ : Ţ
-    {NEO_DEAD_CEDILLA, KC_G, 205, 213},     // ģ : Ģ
-    {NEO_DEAD_CEDILLA, KC_K, 206, 214},     // ķ : Ķ
-    {NEO_DEAD_CEDILLA, KC_L, 207, 215},     // ļ : Ļ
-    {NEO_DEAD_CEDILLA, KC_N, 208, 216},     // ņ : Ņ
-    {NEO_DEAD_CEDILLA, KC_R, 209, 217},     // ŗ : Ŗ
-    {NEO_DEAD_CEDILLA, KC_SPC, 13, 13},     // ¸ : ¸ (reuse from layer 1)
-    
+    {NEO_DEAD_CEDILLA, KC_C, 202, 210}, // ç : Ç
+    {NEO_DEAD_CEDILLA, KC_G, 205, 213}, // ģ : Ģ
+    {NEO_DEAD_CEDILLA, KC_K, 206, 214}, // ķ : Ķ
+    {NEO_DEAD_CEDILLA, KC_L, 207, 215}, // ļ : Ļ
+    {NEO_DEAD_CEDILLA, KC_N, 208, 216}, // ņ : Ņ
+    {NEO_DEAD_CEDILLA, KC_R, 209, 217}, // ŗ : Ŗ
+    {NEO_DEAD_CEDILLA, KC_S, 203, 211}, // ş : Ş
+    {NEO_DEAD_CEDILLA, KC_T, 204, 212}, // ţ : Ţ
+    {NEO_DEAD_CEDILLA, KC_SPC, 13, 13}, // ¸ : ¸ (reuse from layer 1)
+
     // NEO_DEAD_MACRON combinations
-    {NEO_DEAD_MACRON, KC_A, 218, 224},      // ā : Ā
-    {NEO_DEAD_MACRON, KC_E, 219, 225},      // ē : Ē
-    {NEO_DEAD_MACRON, KC_I, 220, 226},      // ī : Ī
-    {NEO_DEAD_MACRON, KC_O, 221, 227},      // ō : Ō
-    {NEO_DEAD_MACRON, KC_U, 222, 228},      // ū : Ū
-    {NEO_DEAD_MACRON, KC_Y, 223, 229},      // ȳ : Ȳ
-    {NEO_DEAD_MACRON, KC_SPC, 230, 230},    // ¯ : ¯
-    
+    {NEO_DEAD_MACRON, KC_A, 218, 224}, // ā : Ā
+    {NEO_DEAD_MACRON, KC_E, 219, 225}, // ē : Ē
+    {NEO_DEAD_MACRON, KC_I, 220, 226}, // ī : Ī
+    {NEO_DEAD_MACRON, KC_O, 221, 227}, // ō : Ō
+    {NEO_DEAD_MACRON, KC_U, 222, 228}, // ū : Ū
+    {NEO_DEAD_MACRON, KC_Y, 223, 229}, // ȳ : Ȳ
+    {NEO_DEAD_MACRON, KC_SPC, 230, 230}, // ¯ : ¯
+
     // NEO_DEAD_BREVE combinations
-    {NEO_DEAD_BREVE, KC_A, 231, 237},       // ă : Ă
-    {NEO_DEAD_BREVE, KC_E, 232, 238},       // ĕ : Ĕ
-    {NEO_DEAD_BREVE, KC_G, 233, 239},       // ğ : Ğ
-    {NEO_DEAD_BREVE, KC_I, 234, 240},       // ĭ : Ĭ
-    {NEO_DEAD_BREVE, KC_O, 235, 241},       // ŏ : Ŏ
-    {NEO_DEAD_BREVE, KC_U, 236, 242},       // ŭ : Ŭ
-    {NEO_DEAD_BREVE, KC_SPC, 243, 243},     // ˘ : ˘
-    
+    {NEO_DEAD_BREVE, KC_A, 231, 237}, // ă : Ă
+    {NEO_DEAD_BREVE, KC_E, 232, 238}, // ĕ : Ĕ
+    {NEO_DEAD_BREVE, KC_G, 233, 239}, // ğ : Ğ
+    {NEO_DEAD_BREVE, KC_I, 234, 240}, // ĭ : Ĭ
+    {NEO_DEAD_BREVE, KC_O, 235, 241}, // ŏ : Ŏ
+    {NEO_DEAD_BREVE, KC_U, 236, 242}, // ŭ : Ŭ
+    {NEO_DEAD_BREVE, KC_SPC, 243, 243}, // ˘ : ˘
+
     // NEO_DEAD_OGONEK combinations
-    {NEO_DEAD_OGONEK, KC_A, 244, 249},      // ą : Ą
-    {NEO_DEAD_OGONEK, KC_E, 245, 250},      // ę : Ę
-    {NEO_DEAD_OGONEK, KC_I, 246, 251},      // į : Į
-    {NEO_DEAD_OGONEK, KC_O, 247, 252},      // ǫ : Ǫ
-    {NEO_DEAD_OGONEK, KC_U, 248, 253},      // ų : Ų
-    {NEO_DEAD_OGONEK, KC_SPC, 254, 254},    // ˛ : ˛
-    
+    {NEO_DEAD_OGONEK, KC_A, 244, 249}, // ą : Ą
+    {NEO_DEAD_OGONEK, KC_E, 245, 250}, // ę : Ę
+    {NEO_DEAD_OGONEK, KC_I, 246, 251}, // į : Į
+    {NEO_DEAD_OGONEK, KC_O, 247, 252}, // ǫ : Ǫ
+    {NEO_DEAD_OGONEK, KC_U, 248, 253}, // ų : Ų
+    {NEO_DEAD_OGONEK, KC_SPC, 254, 254}, // ˛ : ˛
+
     // NEO_DEAD_RING_ABOVE combinations
-    {NEO_DEAD_RING_ABOVE, KC_A, 255, 259},  // å : Å
-    {NEO_DEAD_RING_ABOVE, KC_U, 256, 260},  // ů : Ů
-    {NEO_DEAD_RING_ABOVE, KC_W, 257, 261},  // ẘ : W̊
-    {NEO_DEAD_RING_ABOVE, KC_Y, 258, 261},  // ẙ : Y̊
+    {NEO_DEAD_RING_ABOVE, KC_A, 255, 259}, // å : Å
+    {NEO_DEAD_RING_ABOVE, KC_U, 256, 260}, // ů : Ů
+    {NEO_DEAD_RING_ABOVE, KC_W, 257, 261}, // ẘ : W̊
+    {NEO_DEAD_RING_ABOVE, KC_Y, 258, 261}, // ẙ : Y̊
     {NEO_DEAD_RING_ABOVE, KC_SPC, 261, 261}, // ˚ : ˚
-    
+
     // NEO_DEAD_STROKE combinations
-    {NEO_DEAD_STROKE, KC_L, 262, 275},      // ł : Ł
-    {NEO_DEAD_STROKE, KC_D, 263, 276},      // đ : Đ
-    {NEO_DEAD_STROKE, KC_H, 264, 277},      // ħ : Ħ
-    {NEO_DEAD_STROKE, KC_T, 265, 278},      // ŧ : Ŧ
-    {NEO_DEAD_STROKE, KC_O, 266, 279},      // ø : Ø
-    {NEO_DEAD_STROKE, KC_B, 267, 280},      // ƀ : Ƀ
-    {NEO_DEAD_STROKE, KC_G, 268, 281},      // ǥ : Ǥ
-    {NEO_DEAD_STROKE, KC_I, 269, 282},      // ɨ : Ɨ
-    {NEO_DEAD_STROKE, KC_J, 270, 283},      // ɉ : Ɉ
-    {NEO_DEAD_STROKE, KC_P, 271, 284},      // ᵽ : Ᵽ
-    {NEO_DEAD_STROKE, KC_R, 272, 285},      // ɍ : Ɍ
-    {NEO_DEAD_STROKE, KC_Y, 273, 286},      // ɏ : Ɏ
-    {NEO_DEAD_STROKE, KC_Z, 274, 287},      // ƶ : Ƶ
-    {NEO_DEAD_STROKE, KC_SPC, 288, 288},    // / : /
+    {NEO_DEAD_STROKE, KC_B, 267, 280}, // ƀ : Ƀ
+    {NEO_DEAD_STROKE, KC_D, 263, 276}, // đ : Đ
+    {NEO_DEAD_STROKE, KC_G, 268, 281}, // ǥ : Ǥ
+    {NEO_DEAD_STROKE, KC_H, 264, 277}, // ħ : Ħ
+    {NEO_DEAD_STROKE, KC_I, 269, 282}, // ɨ : Ɨ
+    {NEO_DEAD_STROKE, KC_J, 270, 283}, // ɉ : Ɉ
+    {NEO_DEAD_STROKE, KC_L, 262, 275}, // ł : Ł
+    {NEO_DEAD_STROKE, KC_O, 266, 279}, // ø : Ø
+    {NEO_DEAD_STROKE, KC_P, 271, 284}, // ᵽ : Ᵽ
+    {NEO_DEAD_STROKE, KC_R, 272, 285}, // ɍ : Ɍ
+    {NEO_DEAD_STROKE, KC_T, 265, 278}, // ŧ : Ŧ
+    {NEO_DEAD_STROKE, KC_Y, 273, 286}, // ɏ : Ɏ
+    {NEO_DEAD_STROKE, KC_Z, 274, 287}, // ƶ : Ƶ
+    {NEO_DEAD_STROKE, KC_SPC, 288, 288}, // / : /
 };
 
 #define DEAD_KEY_TABLE_SIZE (sizeof(dead_key_table) / sizeof(dead_key_mapping_t))
@@ -618,31 +624,62 @@ bool is_dead_key_active(void) {
     return dead_key_state.keycode != 0;
 }
 
-// Table-driven dead key lookup function
+// Create a composite key for binary search comparison
+static inline uint32_t make_composite_key(uint16_t dead_key, uint16_t base_key) {
+    return ((uint32_t)dead_key << 16) | base_key;
+}
+
+// Binary search implementation for dead key lookup - O(log n) performance
 uint16_t find_dead_key_unicode_index(uint16_t dead_key, uint16_t base_key, bool is_uppercase) {
-    // Linear search through the dead key table
-    // For better performance, this could be replaced with binary search or hash table
-    for (uint16_t i = 0; i < DEAD_KEY_TABLE_SIZE; i++) {
-        const dead_key_mapping_t *mapping = &dead_key_table[i];
-        if (pgm_read_word(&mapping->dead_key) == dead_key &&
-            pgm_read_word(&mapping->base_key) == base_key) {
-            // Found matching combination
+    uint32_t target_key = make_composite_key(dead_key, base_key);
+    
+    // Binary search through the sorted dead key table
+    uint16_t left = 0;
+    uint16_t right = DEAD_KEY_TABLE_SIZE - 1;
+    
+    while (left <= right) {
+        uint16_t mid = left + (right - left) / 2;
+        const dead_key_mapping_t *mapping = &dead_key_table[mid];
+        
+        uint32_t current_key = make_composite_key(
+            pgm_read_word(&mapping->dead_key),
+            pgm_read_word(&mapping->base_key)
+        );
+        
+        if (current_key == target_key) {
+            // Found exact match - return appropriate index based on case
             if (is_uppercase) {
                 return pgm_read_word(&mapping->uppercase_index);
             } else {
                 return pgm_read_word(&mapping->lowercase_index);
             }
+        } else if (current_key < target_key) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
         }
     }
     
-    // No matching combination found - return fallback dead key character
-    // This handles cases where user types unsupported base key after dead key
-    for (uint16_t i = 0; i < DEAD_KEY_TABLE_SIZE; i++) {
-        const dead_key_mapping_t *mapping = &dead_key_table[i];
-        if (pgm_read_word(&mapping->dead_key) == dead_key &&
-            pgm_read_word(&mapping->base_key) == KC_SPC) {
-            // Return the dead key character itself (space combination)
+    // No exact match found - try to find standalone dead key character (dead_key + KC_SPC)
+    uint32_t fallback_key = make_composite_key(dead_key, KC_SPC);
+    left = 0;
+    right = DEAD_KEY_TABLE_SIZE - 1;
+    
+    while (left <= right) {
+        uint16_t mid = left + (right - left) / 2;
+        const dead_key_mapping_t *mapping = &dead_key_table[mid];
+        
+        uint32_t current_key = make_composite_key(
+            pgm_read_word(&mapping->dead_key),
+            pgm_read_word(&mapping->base_key)
+        );
+        
+        if (current_key == fallback_key) {
             return pgm_read_word(&mapping->lowercase_index);
+        } else if (current_key < fallback_key) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
         }
     }
     

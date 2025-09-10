@@ -30,8 +30,8 @@
 #define TRANSIENT_EEPROM_SIZE 4096
 
 // Enable Unicode support for NEO special characters - ALL OPERATING SYSTEMS
-// Supports Windows, Mac, and Linux for true plug-and-play compatibility
-#define UNICODE_SELECTED_MODES UNICODE_MODE_WINDOWS, UNICODE_MODE_MACOS, UNICODE_MODE_LINUX
+// Uses WinCompose on Windows for better reliability, Mac and Linux native support
+#define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_MACOS, UNICODE_MODE_LINUX
 
 // Use 7 layers for complete NEO 2.0 functionality + RD75 function layer
 #define DYNAMIC_KEYMAP_LAYER_COUNT 7
