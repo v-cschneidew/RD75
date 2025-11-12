@@ -17,6 +17,9 @@
 
 #include "../../lib/rdr_lib/rdr_common.h"
 
+// Forward declaration for keymap-level process_record
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
+
 void matrix_io_delay(void) {
 }
 
@@ -642,6 +645,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {   /*键盘只�
             }
         } return true;
     #endif
-        default:    return true; // Process all other keycodes normally
+        default:    break; // Let process_record_keymap handle it
     }
+    
+    // Call keymap-level process_record if it exists
+    return process_record_keymap(keycode, record);
+}
+
+// Weak function that keymaps can override
+__attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+    return true;
 }
