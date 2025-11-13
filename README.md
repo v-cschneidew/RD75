@@ -10,16 +10,17 @@ This is a fork of the official RD75 QMK firmware with **NEO 2.0 keyboard layout*
 - ✅ **Dead Keys** - Full support for accented characters (^`´¨~)
 - ✅ **VIA Compatible** - Layer switching and customization via VIA
 
-## 📥 Download Pre-compiled Firmware
-
-**Latest Release:** [Download wob_rd75_neo-de.bin](https://github.com/v-cschneidew/RD75/releases/latest)
-
-No compilation needed - just download and flash!
-
 ## 🚀 Quick Start
 
-### 1. Download Firmware
-Download the latest `wob_rd75_neo-de.bin` from the [Releases](https://github.com/v-cschneidew/RD75/releases) page.
+### 1. Build Firmware
+```bash
+# Clone repository
+git clone https://github.com/v-cschneidew/RD75.git
+cd RD75
+
+# Compile neo-de keymap
+qmk compile -kb wob/rd75 -km neo-de
+```
 
 ### 2. Flash Firmware
 
@@ -47,21 +48,6 @@ Set your operating system keyboard layout to:
 ### 4. Start Typing!
 Your keyboard now uses the NEO 2.0 layout.
 
-## 🔧 Build from Source
-
-If you prefer to compile yourself:
-
-```bash
-# Clone repository
-git clone https://github.com/v-cschneidew/RD75.git
-cd RD75
-
-# Compile neo-de keymap
-qmk compile -kb wob/rd75 -km neo-de
-
-# Flash: Copy the generated .bin file to the mounted "No Name" device
-# (Enter bootloader mode as described above)
-```
 
 ## 📚 NEO Layout Overview
 
