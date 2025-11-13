@@ -58,8 +58,11 @@ dfu-util -d 36b0:3003 -a 0 -D wob_rd75_neo-de.bin
 
 ## Troubleshooting
 
-**Wrong characters appearing?**  
+**Wrong characters appearing?**
 → Verify OS layout is **German - Standard** (not Swiss/Austrian variant)
+
+**Double keystrokes appearing?**
+→ This firmware includes a fix for the manufacturer's debounce bug. If you experience double keystrokes with the original firmware, this NEO-DE keymap includes the corrected `DEBOUNCE 5` setting (manufacturer default was too aggressive at 2ms).
 
 ## Technical Details
 
