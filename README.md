@@ -1,40 +1,107 @@
-# THIS IS THE DEVELOP BRANCH
+# RD75 QMK Firmware - NEO 2 Layout Support
 
-Warning- This is the `develop` branch of QMK Firmware. You may encounter broken code here. Please see [Breaking Changes](https://docs.qmk.fm/#/breaking_changes) for more information.
+This is a fork of the official RD75 QMK firmware with **NEO 2.0 keyboard layout** support (Erste 3 Ebenen).
 
-# Quantum Mechanical Keyboard Firmware
+## 🎯 Features
 
-[![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
-[![Discord](https://img.shields.io/discord/440868230475677696.svg)](https://discord.gg/Uq7gcHh)
-[![Docs Status](https://img.shields.io/badge/docs-ready-orange.svg)](https://docs.qmk.fm)
-[![GitHub contributors](https://img.shields.io/github/contributors/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/pulse/monthly)
-[![GitHub forks](https://img.shields.io/github/forks/qmk/qmk_firmware.svg?style=social&label=Fork)](https://github.com/qmk/qmk_firmware/)
+- ✅ **NEO 2.0 Layout** - Erste 3 Ebenen (Layers 1-3) fully implemented
+- ✅ **Plug & Play** - No drivers required, uses native German keyboard layout
+- ✅ **Fixed Debounce** - Resolved manufacturer's double keystroke bug (2ms → 5ms)
+- ✅ **Dead Keys** - Full support for accented characters (^`´¨~)
+- ✅ **VIA Compatible** - Layer switching and customization via VIA
 
-This is a keyboard firmware based on the [tmk\_keyboard firmware](https://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR and ARM controllers, and more specifically, the [OLKB product line](https://olkb.com), the [ErgoDox EZ](https://ergodox-ez.com) keyboard, and the Clueboard product line.
+## 📥 Download Pre-compiled Firmware
 
-## Documentation
+**Latest Release:** [Download wob_rd75_neo-de.bin](https://github.com/v-cschneidew/RD75/releases/latest)
 
-* [See the official documentation on docs.qmk.fm](https://docs.qmk.fm)
+No compilation needed - just download and flash!
 
-The docs are powered by [Docsify](https://docsify.js.org/) and hosted on [GitHub](/docs/). They are also viewable offline; see [Previewing the Documentation](https://docs.qmk.fm/#/contributing?id=previewing-the-documentation) for more details.
+## 🚀 Quick Start
 
-You can request changes by making a fork and opening a [pull request](https://github.com/qmk/qmk_firmware/pulls), or by clicking the "Edit this page" link at the bottom of any page.
+### 1. Download Firmware
+Download the latest `wob_rd75_neo-de.bin` from the [Releases](https://github.com/v-cschneidew/RD75/releases) page.
 
-## Supported Keyboards
+### 2. Flash Firmware
 
-* [Planck](/keyboards/planck/)
-* [Preonic](/keyboards/preonic/)
-* [ErgoDox EZ](/keyboards/ergodox_ez/)
-* [Clueboard](/keyboards/clueboard/)
-* [Cluepad](/keyboards/clueboard/17/)
-* [Atreus](/keyboards/atreus/)
+**Easy Method (macOS/Windows/Linux):**
+1. Turn off Bluetooth using the small switch under the CapsLock key
+2. Hold down ESC key
+3. Connect keyboard via USB cable
+4. After 3 seconds, release ESC key
+5. A "No Name" device will mount
+6. Copy `wob_rd75_neo-de.bin` to the mounted device
+7. Keyboard will flash automatically
 
-The project also includes community support for [lots of other keyboards](/keyboards/).
+**Alternative (Command Line):**
+```bash
+# Enter bootloader mode first (steps above), then:
+dfu-util -d 36b0:3003 -a 0 -D wob_rd75_neo-de.bin
+```
 
-## Maintainers
+### 3. Set OS Keyboard Layout
+Set your operating system keyboard layout to:
+- **Windows**: Deutsch (Deutschland)
+- **macOS**: German - Standard
+- **Linux**: German (de)
 
-QMK is developed and maintained by Jack Humbert of OLKB with contributions from the community, and of course, [Hasu](https://github.com/tmk). The OLKB product firmwares are maintained by [Jack Humbert](https://github.com/jackhumbert), the Ergodox EZ by [ZSA Technology Labs](https://github.com/zsa), the Clueboard by [Zach White](https://github.com/skullydazed), and the Atreus by [Phil Hagelberg](https://github.com/technomancy).
+### 4. Start Typing!
+Your keyboard now uses the NEO 2.0 layout.
 
-## Official Website
+## 🔧 Build from Source
 
-[qmk.fm](https://qmk.fm) is the official website of QMK, where you can find links to this page, the documentation, and the keyboards supported by QMK.
+If you prefer to compile yourself:
+
+```bash
+# Clone repository
+git clone https://github.com/v-cschneidew/RD75.git
+cd RD75
+
+# Compile neo-de keymap
+qmk compile -kb wob/rd75 -km neo-de
+
+# Flash: Copy the generated .bin file to the mounted "No Name" device
+# (Enter bootloader mode as described above)
+```
+
+## 📚 NEO Layout Overview
+
+The NEO layout improves typing ergonomics for German and programming:
+
+| Layer | Activation | Description |
+|-------|-----------|-------------|
+| Ebene 1 | Default | Base layer (xvlcw...) |
+| Ebene 2 | Shift | Uppercase + special chars |
+| Ebene 3 | Mod3 (Caps Lock) | Symbols: []{}()<>!?@#$%&*/+=\| |
+| Function | Fn (right of space) | RGB, Media, Wireless |
+
+For detailed layout information, see [keyboards/wob/rd75/keymaps/neo-de/README.md](keyboards/wob/rd75/keymaps/neo-de/README.md)
+
+## 🐛 Bug Fixes
+
+This firmware fixes a critical bug in the manufacturer's original firmware:
+
+**Double Keystroke Issue**: The original firmware had `DEBOUNCE 2` which was too aggressive, causing switch bouncing to register as multiple keystrokes. This has been corrected to `DEBOUNCE 5` (QMK standard).
+
+## 👤 Credits
+
+- **NEO Layout Implementation**: Christian Schneidewind
+- **Original RD75 Firmware**: Finalkey / LiWenLiu
+- **QMK Framework**: QMK Contributors
+
+## 📄 License
+
+GPL-2.0 (QMK License)
+
+---
+
+## 🔗 Links
+
+- **NEO Layout Official**: https://neo-layout.org/
+- **QMK Firmware**: https://qmk.fm/
+- **Original Manufacturer Firmware**: https://github.com/Finalkey/RD75
+
+---
+
+## ⚙️ Original QMK Documentation
+
+For general QMK documentation, see [docs.qmk.fm](https://docs.qmk.fm)

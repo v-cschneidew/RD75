@@ -1,7 +1,9 @@
 /* Copyright 2023 Yiancar-Designs
+ * Copyright 2025 Christian Schneidewind
  *
- * NEO 2.0 Keyboard Layout Implementation for RD75 - TEST VERSION
- * Simplified version with 4 layers only (0-3) for debugging
+ * NEO 2.0 Keyboard Layout Implementation for RD75
+ * Implements NEO Ebenen 1-3 (Layers 0-2) plus Function layer (Layer 3)
+ * Using native German keyboard layout - no drivers required
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
