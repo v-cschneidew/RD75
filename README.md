@@ -84,7 +84,7 @@ GPL-2.0 (QMK License)
 
 - **NEO Layout Official**: https://neo-layout.org/
 - **QMK Firmware**: https://qmk.fm/
-- **Original Manufacturer Firmware**: https://github.com/Finalkey/RD75
+- **Original Manufacturer Firmware**: https://github.com/womierkeyboard/RD75
 
 ---
 
