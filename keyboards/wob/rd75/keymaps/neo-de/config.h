@@ -39,8 +39,3 @@
 
 // Enable tap dance for dead keys
 #define TAPPING_TERM 200
-
-// Fix for AVD/Citrix/RDP: Add delay between key press and release
-// This ensures modifiers (AltGr, Shift, etc.) are properly registered
-// 18ms is optimal for virtual desktop environments
-#define TAP_CODE_DELAY 18
