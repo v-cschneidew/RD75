@@ -55,9 +55,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     // NEO Ebene 2 (Shift layer) - Layer 1 - Native German keycodes only
+    // LIMITATION: German layout only supports 3 dead keys (^, `, ´) on Layer 0
+    // Dead keys ˇ (Caron) and ¸ (Cedilla) are not available - set to KC_NO
     [1] = LAYOUT_tkl_ansi(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_DEL,  KC_HOME, KC_MUTE,
-        KC_NO, S(DE_CIRC), S(KC_3), KC_NO, KC_NO, KC_NO, S(KC_4), DE_EURO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_BSPC, KC_END,
+        KC_NO, S(KC_1), S(KC_2), S(KC_3), KC_NO, KC_NO, S(KC_4), DE_EURO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_BSPC, KC_END,
         S(KC_TAB), S(KC_X), S(KC_V), S(KC_L), S(KC_C), S(KC_W), S(KC_K), S(KC_H), S(KC_G), S(KC_F), S(KC_Q), S(DE_SS), DE_TILD, KC_BSLS, KC_PGUP,
         KC_TRNS, S(KC_U), S(KC_I), S(KC_A), S(KC_E), S(KC_O), S(KC_S), S(KC_N), S(KC_R), S(KC_T), S(KC_D), S(DE_Y), KC_TRNS, KC_ENT, KC_PGDN,
         KC_LSFT,          S(DE_UDIA), S(DE_ODIA), S(DE_ADIA), S(KC_P), S(DE_Z), S(KC_B), S(KC_M), DE_MINS, KC_DOT, S(KC_J), KC_RSFT, KC_UP,
@@ -65,6 +67,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     // NEO Ebene 3 (Mod3 symbols) - Layer 2 - Native German keycodes only
+    // LIMITATION: German layout only supports 3 dead keys (^, `, ´) on Layer 0
+    // Dead keys ˚ (Ring) and other Layer 2 dead keys are not available - set to KC_NO
     [2] = LAYOUT_tkl_ansi(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_DEL,  KC_HOME, KC_MUTE,
         KC_NO, KC_NO, NEO_SUP2, NEO_SUP3, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_BSPC, KC_END,
