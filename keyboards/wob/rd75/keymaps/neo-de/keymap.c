@@ -176,16 +176,21 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             return false;
             
         // Dead keys that should output immediately (not act as dead keys)
+        // Uses AVD-compatible timing
         case NEO_CIRC:
             if (record->event.pressed) {
                 tap_code16(DE_CIRC);
+                wait_ms(20);
                 tap_code(KC_SPC);
+                wait_ms(20);
             }
             return false;
         case NEO_GRV:
             if (record->event.pressed) {
                 tap_code16(DE_GRV);
+                wait_ms(20);
                 tap_code(KC_SPC);
+                wait_ms(20);
             }
             return false;
     }
