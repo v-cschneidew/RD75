@@ -37,7 +37,10 @@ enum custom_keycodes {
     NEO_AT,    // @
     NEO_EURO,  // €
     NEO_TILD,  // ~
-    NEO_PIPE   // |
+    NEO_PIPE,  // |
+    // Dead keys that should output immediately on Layer 2
+    NEO_CIRC,  // ^ (not dead)
+    NEO_GRV    // ` (not dead)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -65,9 +68,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [2] = LAYOUT_tkl_ansi(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_DEL,  KC_HOME, KC_MUTE,
         KC_NO, KC_NO, NEO_SUP2, NEO_SUP3, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_BSPC, KC_END,
-        KC_NO, KC_NO, DE_UNDS, NEO_LBRC, NEO_RBRC, DE_CIRC, DE_EXLM, DE_LABK, DE_RABK, DE_EQL, DE_AMPR, KC_NO, DE_SLSH, NEO_BSLS, KC_PGUP,
+        KC_NO, KC_NO, DE_UNDS, NEO_LBRC, NEO_RBRC, NEO_CIRC, DE_EXLM, DE_LABK, DE_RABK, DE_EQL, DE_AMPR, KC_NO, DE_SLSH, NEO_BSLS, KC_PGUP,
         KC_TRNS, NEO_BSLS, DE_SLSH, NEO_LCBR, NEO_RCBR, DE_ASTR, DE_QUES, DE_LPRN, DE_RPRN, DE_MINS, DE_COLN, NEO_AT, KC_TRNS, KC_ENT, KC_PGDN,
-        KC_LSFT,          DE_HASH, DE_DLR, NEO_PIPE, NEO_TILD, DE_GRV, DE_PLUS, DE_PERC, DE_DQUO, DE_QUOT, DE_SCLN, KC_RSFT, KC_UP,
+        KC_LSFT,          DE_HASH, DE_DLR, NEO_PIPE, NEO_TILD, NEO_GRV, DE_PLUS, DE_PERC, DE_DQUO, DE_QUOT, DE_SCLN, KC_RSFT, KC_UP,
         KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                              NEO_FN,   KC_RCTL,            KC_LEFT,  KC_DOWN, KC_RGHT
     ),
 
@@ -170,6 +173,20 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             return false;
         case NEO_PIPE:
             if (record->event.pressed) send_altgr_key(DE_LABK);
+            return false;
+            
+        // Dead keys that should output immediately (not act as dead keys)
+        case NEO_CIRC:
+            if (record->event.pressed) {
+                tap_code16(DE_CIRC);
+                tap_code(KC_SPC);
+            }
+            return false;
+        case NEO_GRV:
+            if (record->event.pressed) {
+                tap_code16(DE_GRV);
+                tap_code(KC_SPC);
+            }
             return false;
     }
     return true;
