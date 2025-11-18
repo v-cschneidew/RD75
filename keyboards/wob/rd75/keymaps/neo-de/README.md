@@ -64,6 +64,9 @@ dfu-util -d 36b0:3003 -a 0 -D wob_rd75_neo-de.bin
 **Double keystrokes appearing?**
 → This firmware includes a fix for the manufacturer's debounce bug. If you experience double keystrokes with the original firmware, this NEO-DE keymap includes the corrected `DEBOUNCE 5` setting (manufacturer default was too aggressive at 2ms).
 
+**Using in AVD/Citrix/RDP environments?**
+→ This firmware includes timing fixes for virtual desktop environments. All AltGr symbols (@ € [ ] { } | ~ \ ² ³) work reliably in Azure Virtual Desktop, Windows RDP, and Citrix by adding 20ms delays around modifier keys to compensate for RDP protocol timing issues.
+
 ## Technical Details
 
 - **Firmware Size**: 71,000 bytes

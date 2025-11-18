@@ -6,6 +6,7 @@ This is a fork of the official RD75 QMK firmware with **NEO 2.0 keyboard layout*
 
 - ✅ **NEO 2.0 Layout** - Erste 3 Ebenen (Layers 1-3) fully implemented
 - ✅ **Plug & Play** - No drivers required, uses native German keyboard layout
+- ✅ **AVD/RDP Compatible** - Works reliably in Azure Virtual Desktop, Citrix, Windows RDP
 - ✅ **Fixed Debounce** - Resolved manufacturer's double keystroke bug (2ms → 5ms)
 - ✅ **Dead Keys** - Full support for accented characters (^`´¨~)
 - ✅ **VIA Compatible** - Layer switching and customization via VIA
@@ -64,9 +65,13 @@ For detailed layout information, see [keyboards/wob/rd75/keymaps/neo-de/README.m
 
 ## 🐛 Bug Fixes
 
-This firmware fixes a critical bug in the manufacturer's original firmware:
+This firmware fixes critical bugs in the manufacturer's original firmware:
 
-**Double Keystroke Issue**: The original firmware had `DEBOUNCE 2` which was too aggressive, causing switch bouncing to register as multiple keystrokes. This has been corrected to `DEBOUNCE 5` (QMK standard).
+### Double Keystroke Issue
+The original firmware had `DEBOUNCE 2` which was too aggressive, causing switch bouncing to register as multiple keystrokes. This has been corrected to `DEBOUNCE 5` (QMK standard).
+
+### AVD/RDP Compatibility
+Virtual desktop environments (Azure Virtual Desktop, Citrix, Windows RDP) have timing issues with AltGr modifier keys. This firmware includes 20ms timing delays for all AltGr symbols (@ € [ ] { } | ~ \ ² ³) to ensure reliable operation in remote desktop environments.
 
 ## 👤 Credits
 

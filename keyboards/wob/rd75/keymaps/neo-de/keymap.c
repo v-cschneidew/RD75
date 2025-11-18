@@ -22,10 +22,22 @@
 #include "../../../lib/rdr_lib/rdr_common.h"
 #include "keymap_german.h"
 
-// Custom keycodes for NEO layer switching only - no Unicode/dead keys
+// Custom keycodes for NEO layer switching and AVD-compatible AltGr symbols
 enum custom_keycodes {
     NEO_MOD3 = SAFE_RANGE,  // Mod3 key (Caps Lock position) - activates Layer 2
-    NEO_FN                  // Fn key (right of spacebar) - activates Layer 3 (Function)
+    NEO_FN,                 // Fn key (right of spacebar) - activates Layer 3 (Function)
+    // AVD-compatible AltGr symbols (with timing delays for RDP)
+    NEO_SUP2,  // ²
+    NEO_SUP3,  // ³
+    NEO_LCBR,  // {
+    NEO_LBRC,  // [
+    NEO_RBRC,  // ]
+    NEO_RCBR,  // }
+    NEO_BSLS,  // backslash
+    NEO_AT,    // @
+    NEO_EURO,  // €
+    NEO_TILD,  // ~
+    NEO_PIPE   // |
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -52,10 +64,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // NEO Ebene 3 (Mod3 symbols) - Layer 2 - Native German keycodes only
     [2] = LAYOUT_tkl_ansi(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_DEL,  KC_HOME, KC_MUTE,
-        KC_NO, KC_NO, DE_SUP2, DE_SUP3, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_BSPC, KC_END,
-        KC_NO, KC_NO, DE_UNDS, DE_LBRC, DE_RBRC, DE_CIRC, DE_EXLM, DE_LABK, DE_RABK, DE_EQL, DE_AMPR, KC_NO, DE_SLSH, DE_BSLS, KC_PGUP,
-        KC_TRNS, DE_BSLS, DE_SLSH, DE_LCBR, DE_RCBR, DE_ASTR, DE_QUES, DE_LPRN, DE_RPRN, DE_MINS, DE_COLN, DE_AT, KC_TRNS, KC_ENT, KC_PGDN,
-        KC_LSFT,          DE_HASH, DE_DLR, DE_PIPE, DE_TILD, DE_GRV, DE_PLUS, DE_PERC, DE_DQUO, DE_QUOT, DE_SCLN, KC_RSFT, KC_UP,
+        KC_NO, KC_NO, NEO_SUP2, NEO_SUP3, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_BSPC, KC_END,
+        KC_NO, KC_NO, DE_UNDS, NEO_LBRC, NEO_RBRC, DE_CIRC, DE_EXLM, DE_LABK, DE_RABK, DE_EQL, DE_AMPR, KC_NO, DE_SLSH, NEO_BSLS, KC_PGUP,
+        KC_TRNS, NEO_BSLS, DE_SLSH, NEO_LCBR, NEO_RCBR, DE_ASTR, DE_QUES, DE_LPRN, DE_RPRN, DE_MINS, DE_COLN, NEO_AT, KC_TRNS, KC_ENT, KC_PGDN,
+        KC_LSFT,          DE_HASH, DE_DLR, NEO_PIPE, NEO_TILD, DE_GRV, DE_PLUS, DE_PERC, DE_DQUO, DE_QUOT, DE_SCLN, KC_RSFT, KC_UP,
         KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                              NEO_FN,   KC_RCTL,            KC_LEFT,  KC_DOWN, KC_RGHT
     ),
 
@@ -97,7 +109,16 @@ void update_neo_layers(void) {
     }
 }
 
-// Layer switching logic for NEO - simplified (no dead keys)
+// Helper function for AVD-compatible AltGr symbols
+static void send_altgr_key(uint16_t keycode) {
+    register_code(KC_RALT);
+    wait_ms(20);
+    tap_code(keycode);
+    wait_ms(20);
+    unregister_code(KC_RALT);
+}
+
+// Layer switching logic for NEO with AVD-compatible AltGr symbols
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case NEO_MOD3:
@@ -115,6 +136,41 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
             neo_shift_pressed = record->event.pressed;
             update_neo_layers();
             return false; // DON'T let OS see shift - Layer 1 handles it
+            
+        // AVD-compatible AltGr symbols with timing delays
+        case NEO_SUP2:
+            if (record->event.pressed) send_altgr_key(KC_2);
+            return false;
+        case NEO_SUP3:
+            if (record->event.pressed) send_altgr_key(KC_3);
+            return false;
+        case NEO_LCBR:
+            if (record->event.pressed) send_altgr_key(KC_7);
+            return false;
+        case NEO_LBRC:
+            if (record->event.pressed) send_altgr_key(KC_8);
+            return false;
+        case NEO_RBRC:
+            if (record->event.pressed) send_altgr_key(KC_9);
+            return false;
+        case NEO_RCBR:
+            if (record->event.pressed) send_altgr_key(KC_0);
+            return false;
+        case NEO_BSLS:
+            if (record->event.pressed) send_altgr_key(DE_SS);
+            return false;
+        case NEO_AT:
+            if (record->event.pressed) send_altgr_key(KC_Q);
+            return false;
+        case NEO_EURO:
+            if (record->event.pressed) send_altgr_key(KC_E);
+            return false;
+        case NEO_TILD:
+            if (record->event.pressed) send_altgr_key(DE_PLUS);
+            return false;
+        case NEO_PIPE:
+            if (record->event.pressed) send_altgr_key(DE_LABK);
+            return false;
     }
     return true;
 }
