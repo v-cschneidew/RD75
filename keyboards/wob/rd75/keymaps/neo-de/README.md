@@ -20,9 +20,11 @@ Plug-and-play NEO 2.0 layout for WOB RD75. **No drivers or software required.**
 | Key | Layer | Description |
 |-----|-------|-------------|
 | (none) | 0 | NEO base (xvlcw...) |
-| Shift | 1 | Uppercase + °§$€ |
-| Mod3 (Caps) | 2 | Symbols: []{}()<>!?@#$%&*/+=-\|~²³ |
+| Shift | 1 | Uppercase + °§$€ (Note: ẞ→ß due to layout limitation) |
+| Mod3 (Caps or backslash key) | 2 | Symbols: []{}()<>!?@#$%&*/+=-\|~²³ |
 | Fn (right of space) | 3 | RGB, Media, Wireless |
+
+**Hardware Adaptation**: The backslash key (right of ´) has been remapped to a second Mod3 key for easier access to Layer 2 symbols.
 
 ## Dead Keys
 
@@ -31,17 +33,23 @@ Plug-and-play NEO 2.0 layout for WOB RD75. **No drivers or software required.**
 - `` ` `` (Grave) + e → è, a → à
 - `´` (Acute) + e → é, a → á
 
-**Limitation**: NEO 2.0 specifies additional dead keys on Layer 1 (Shift) and Layer 2 (Mod3) that are **not available** in the German keyboard layout:
-- Layer 1: ˇ (Caron), ¸ (Cedilla), ¨ (Trema) - **not functional**
-- Layer 2: ˚ (Ring), ¯ (Macron), ˘ (Breve) - **not functional**
+**Limitations**:
+1. NEO 2.0 specifies additional dead keys on Layer 1 (Shift) and Layer 2 (Mod3) that are **not available** in the German keyboard layout:
+   - Layer 1: ˇ (Caron), ¸ (Cedilla), ¨ (Trema) - **not functional**
+   - Layer 2: ˚ (Ring), ¯ (Macron), ˘ (Breve) - **not functional**
+   - These positions are set to `KC_NO` to avoid confusion.
 
-These positions are set to `KC_NO` to avoid confusion. If you need these dead keys, you would need to use a full NEO driver installation instead of this plug-and-play firmware.
+2. **Capital ẞ not available**: The German keyboard layout does not support the capital ẞ (U+1E9E). On Layer 1 (Shift), the ß key outputs lowercase `ß` instead of uppercase `ẞ`. This is a limitation of the standard German keyboard layout.
+
+If you need these dead keys or capital ẞ, you would need to use a full NEO driver installation instead of this plug-and-play firmware.
 
 ## Features
 
 ✅ 3 NEO layers (Ebenen 1-3) implemented
 ✅ 3 dead keys (^, `, ´) for accented characters on Layer 0
 ⚠️ Additional NEO dead keys not available (German layout limitation)
+⚠️ Capital ẞ not available (outputs lowercase ß instead)
+✅ Second Mod3 key on backslash position for easier access
 ✅ Superscripts ²³ (Layer 2)
 ✅ All brackets and symbols
 ✅ Function layer for keyboard controls
@@ -79,7 +87,10 @@ dfu-util -d 36b0:3003 -a 0 -D wob_rd75_neo-de.bin
 - **VIA**: Enabled
 - **Layers**: 4 (0-3)
 - **Dead Keys**: 3 dead keys (^, `, ´) on Layer 0 only
-- **Limitation**: German layout does not support all NEO dead keys
+- **Limitations**:
+  - German layout does not support all NEO dead keys
+  - Capital ẞ not available (outputs lowercase ß)
+  - Backslash key remapped to second Mod3
 
 ## License
 

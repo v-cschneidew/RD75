@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_tkl_ansi(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_DEL,  KC_HOME, KC_MUTE,
         DE_CIRC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, DE_MINS, DE_GRV, KC_BSPC, KC_END,
-        KC_TAB,  KC_X,    KC_V,    KC_L,    KC_C,    KC_W,     KC_K,    KC_H,    KC_G,    KC_F,    KC_Q,     DE_SS, DE_ACUT, KC_BSLS, KC_PGUP,
+        KC_TAB,  KC_X,    KC_V,    KC_L,    KC_C,    KC_W,     KC_K,    KC_H,    KC_G,    KC_F,    KC_Q,     DE_SS, DE_ACUT, NEO_MOD3, KC_PGUP,
         NEO_MOD3, KC_U,   KC_I,    KC_A,    KC_E,    KC_O,     KC_S,    KC_N,    KC_R,    KC_T,    KC_D,     DE_Y,     NEO_MOD3, KC_ENT,  KC_PGDN,
         KC_LSFT,          DE_UDIA, DE_ODIA, DE_ADIA, KC_P, DE_Z, KC_B, KC_M, KC_COMM, KC_DOT, KC_J, KC_RSFT, KC_UP,
         KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                              NEO_FN,   KC_RCTL,           KC_LEFT,  KC_DOWN, KC_RGHT
@@ -57,10 +57,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // NEO Ebene 2 (Shift layer) - Layer 1 - Native German keycodes only
     // LIMITATION: German layout only supports 3 dead keys (^, `, ´) on Layer 0
     // Dead keys ˇ (Caron) and ¸ (Cedilla) are not available - set to KC_NO
+    // LIMITATION: Capital ẞ not available in German layout - using lowercase ß instead
     [1] = LAYOUT_tkl_ansi(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,   KC_F12,   KC_DEL,  KC_HOME, KC_MUTE,
         KC_NO, S(KC_1), S(KC_2), S(KC_3), KC_NO, KC_NO, S(KC_4), DE_EURO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_BSPC, KC_END,
-        S(KC_TAB), S(KC_X), S(KC_V), S(KC_L), S(KC_C), S(KC_W), S(KC_K), S(KC_H), S(KC_G), S(KC_F), S(KC_Q), S(DE_SS), DE_TILD, KC_BSLS, KC_PGUP,
+        S(KC_TAB), S(KC_X), S(KC_V), S(KC_L), S(KC_C), S(KC_W), S(KC_K), S(KC_H), S(KC_G), S(KC_F), S(KC_Q), DE_SS, DE_TILD, KC_TRNS, KC_PGUP,
         KC_TRNS, S(KC_U), S(KC_I), S(KC_A), S(KC_E), S(KC_O), S(KC_S), S(KC_N), S(KC_R), S(KC_T), S(KC_D), S(DE_Y), KC_TRNS, KC_ENT, KC_PGDN,
         KC_LSFT,          S(DE_UDIA), S(DE_ODIA), S(DE_ADIA), S(KC_P), S(DE_Z), S(KC_B), S(KC_M), DE_MINS, KC_DOT, S(KC_J), KC_RSFT, KC_UP,
         KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                              NEO_FN,   KC_RCTL,           KC_LEFT,  KC_DOWN, KC_RGHT
