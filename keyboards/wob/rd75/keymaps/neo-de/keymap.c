@@ -79,15 +79,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                              NEO_FN,   KC_RCTL,            KC_LEFT,  KC_DOWN, KC_RGHT
     ),
 
-    // Layer 3: Function Layer (RGB, Wireless) - No Unicode modes needed
-    // NEO_FN key activates this layer for RGB and wireless control
+    // Layer 3: Function Layer (RGB, Wireless, Media)
+    // NEO_FN key activates this layer for keyboard control functions only
+    // All QWERTY remnants removed - only relevant function keys remain
     [3] = LAYOUT_tkl_ansi(
-        KC_ESC,  KC_BRID, KC_BRIU, KC_WHOM, KC_MAIL, KC_CALC,  KC_MSEL, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,  KC_VOLD,  KC_VOLU,  RGB_TOG, KC_HOME, KC_MUTE,
-        KC_GRV,  MD_BLE1, MD_BLE2, MD_BLE3, MD_24G,  MD_USB,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     LOGO_VAD, LOGO_VAI, QK_BAT,  EE_CLR,
-        KC_TAB,  KC_NO,   KC_NO,   KC_NO,   KC_R,    KC_T,     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     LOGO_SPD, LOGO_SPI, RGB_MOD, RGB_SAI,
-        KC_CAPS, KC_NO,   KC_NO,   RGB_VAD, RGB_VAI, KC_G,     KC_H,    KC_J,    KC_K,    KC_L,    LOGO_SAD, LOGO_SAI, RGB_MOD,  RGB_HUI, RGB_SAD,
-        KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,     KC_B,    SIX_N,   KC_M,    KC_COMM, KC_DOT,   KC_SLSH,  LOGO_HUI, RGB_VAI,
-        TEST_CL, QK_WLO,  KC_LALT,                   LOGO_MOD,                            KC_TRNS, KC_RCTL,            RGB_SPD,  RGB_VAD, RGB_SPI
+        KC_NO,   KC_BRID, KC_BRIU, KC_WHOM, KC_MAIL, KC_CALC,  KC_MSEL, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE,  KC_VOLD,  KC_VOLU,  RGB_TOG, KC_NO,   KC_NO,
+        KC_NO,   MD_BLE1, MD_BLE2, MD_BLE3, MD_24G,  MD_USB,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    LOGO_VAD, LOGO_VAI, QK_BAT,  EE_CLR,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,    LOGO_SPD, LOGO_SPI, RGB_MOD, RGB_SAI,
+        KC_NO,   KC_NO,   KC_NO,   RGB_VAD, RGB_VAI, KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   LOGO_SAD, LOGO_SAI, KC_NO,    RGB_HUI, RGB_SAD,
+        KC_NO,            KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   SIX_N,   KC_NO,   KC_NO,   KC_NO,    KC_NO,    LOGO_HUI, RGB_VAI,
+        TEST_CL, QK_WLO,  KC_NO,                     LOGO_MOD,                            KC_TRNS, KC_NO,              RGB_SPD,  RGB_VAD, RGB_SPI
     )
 };
 

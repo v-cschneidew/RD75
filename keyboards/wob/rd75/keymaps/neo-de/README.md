@@ -96,27 +96,28 @@ Plug-and-play NEO 2.0 layout for WOB RD75. **No drivers or software required.**
 ### Layer 3: Function Layer (Fn)
 ```
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────────┬─────┐
-│ Esc │Bri- │Bri+ │Mail │Calc │Calc │Media│Prev │Play │Next │Mute │Vol- │Vol+ │RGB Togl │Home │
+│     │Bri- │Bri+ │Mail │Calc │Calc │Media│Prev │Play │Next │Mute │Vol- │Vol+ │RGB Togl │     │
 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────────┼─────┤
-│  `  │BLE1 │BLE2 │BLE3 │2.4G │ USB │     │     │     │     │     │Logo-│Logo+│Battery  │Clear│
+│     │BLE1 │BLE2 │BLE3 │2.4G │ USB │     │     │     │     │     │Logo-│Logo+│Battery  │Clear│
 │     │     │     │     │     │     │     │     │     │     │     │ Val │ Val │  Info   │EPRM │
 ├─────┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──────┼─────┤
-│  Tab   │     │     │     │  R  │  T  │  Y  │  U  │  I  │  O  │  P  │Logo │Logo │ RGB  │RGB  │
+│        │     │     │     │     │     │     │     │     │     │     │Logo │Logo │ RGB  │RGB  │
 │        │     │     │     │     │     │     │     │     │     │     │Spd- │Spd+ │ Mode │Sat+ │
 ├────────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴──────┼─────┤
-│  Caps   │     │     │RGB- │RGB+ │  G  │  H  │  J  │  K  │  L  │Logo │Logo │ RGB Hue+  │RGB  │
-│  Lock   │     │     │ Val │ Val │     │     │     │     │     │Sat- │Sat+ │           │Sat- │
+│         │     │     │RGB- │RGB+ │     │     │     │     │     │Logo │Logo │ RGB Hue+  │RGB  │
+│         │     │     │ Val │ Val │     │     │     │     │     │Sat- │Sat+ │           │Sat- │
 ├─────────┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴────┴─────┼─────┤
-│   Shift    │  Z  │  X  │  C  │  V  │  B  │6xN  │  M  │  ,  │  .  │  /  │Logo Hue+    │RGB+ │
+│            │     │     │     │     │     │6xN  │     │     │     │     │Logo Hue+    │RGB+ │
 │            │     │     │     │     │     │     │     │     │     │     │             │ Val │
 ├──────┬─────┴─┬───┴──┬──┴─────┴─────┴─────┴─────┴─────┴─────┼─────┴─┬───┴──┬──────────┼─────┼─────┼─────┐
-│Test  │WL Off │ Alt  │        Logo Mode                      │  Fn   │ Ctrl │          │RGB  │RGB- │RGB  │
+│Test  │WL Off │      │        Logo Mode                      │  Fn   │      │          │RGB  │RGB- │RGB  │
 │Color │       │      │                                       │       │      │          │Spd- │ Val │Spd+ │
 └──────┴───────┴──────┴───────────────────────────────────────┴───────┴──────┴──────────┴─────┴─────┴─────┘
 
 Wireless Modes: BLE1/BLE2/BLE3 = Bluetooth devices 1-3, 2.4G = 2.4GHz wireless, USB = wired mode
 RGB Controls: Brightness, Saturation, Hue, Speed, Mode cycling
 Logo Controls: Separate RGB controls for keyboard logo LED
+6xN: Press 6 times N key (special function)
 ```
 
 **Legend:**
