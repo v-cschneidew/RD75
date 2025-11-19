@@ -117,7 +117,7 @@ Plug-and-play NEO 2.0 layout for WOB RD75. **No drivers or software required.**
 Wireless Modes: BLE1/BLE2/BLE3 = Bluetooth devices 1-3, 2.4G = 2.4GHz wireless, USB = wired mode
 RGB Controls: Brightness, Saturation, Hue, Speed, Mode cycling
 Logo Controls: Separate RGB controls for keyboard logo LED
-6xN: Press 6 times N key (special function)
+6xN: Toggle NKRO (N-Key Rollover) - switches between 6-key mode (compatible) and full NKRO (unlimited keys)
 ```
 
 **Legend:**
