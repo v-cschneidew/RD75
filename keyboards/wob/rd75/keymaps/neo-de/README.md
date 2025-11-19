@@ -1,34 +1,67 @@
-# NEO-DE Keymap
+# NEO 2.0 Layout für Wormier RD75
 
-Plug-and-play NEO 2.0 layout for WOB RD75. **No drivers or software required.**
+**Plug-and-play NEO 2.0 Firmware** – keine Treiber, keine Software-Installation erforderlich.
 
-## Quick Start
+> **English Summary**: This is a plug-and-play NEO 2.0 keyboard layout firmware for the Wormier RD75. It implements NEO layers 1-3 (Ebenen 1-3) using the native German keyboard layout. No drivers or software installation required – just flash the firmware and set your OS keyboard layout to German. Includes fixes for Azure Virtual Desktop/RDP compatibility.
 
-1. **Set OS keyboard layout**: German - Standard
-2. **Flash firmware**: `qmk flash -kb wob/rd75 -km neo-de`  
-3. **Start typing**: NEO layout ready!
+---
 
-## Requirements
+## Schnellstart
 
-**OS Keyboard Layout**: German - Standard (Deutschland)
-- ✅ Windows: Deutsch (Deutschland)
-- ✅ macOS: German - Standard
-- ✅ Linux: German (de)
+1. **Firmware kompilieren**: `qmk compile -kb wob/rd75 -km neo-de`
+2. **Firmware flashen**: Siehe [Installation](#installation) für Details
+3. **OS-Tastaturlayout einstellen**: Deutsch (Deutschland)
+4. **Fertig!** NEO 2.0 ist einsatzbereit
 
-## Layers
+---
 
-| Key | Layer | Description |
-|-----|-------|-------------|
-| (none) | 0 | NEO base (xvlcw...) |
-| Shift | 1 | Uppercase + °§$€ (Note: ẞ→ß due to layout limitation) |
-| Mod3 (Caps or backslash key) | 2 | Symbols: []{}()<>!?@#$%&*/+=-\|~²³ |
-| Fn (right of space) | 3 | RGB, Media, Wireless |
+## Was ist implementiert
 
-**Hardware Adaptation**: The backslash key (right of ´) has been remapped to a second Mod3 key for easier access to Layer 2 symbols.
+### ✅ NEO Ebenen 1-3 (Layer 0-2)
+- **Ebene 1** (Base): Komplettes NEO-Basislayout (xvlcw...)
+- **Ebene 2** (Shift): Großbuchstaben und Sonderzeichen
+- **Ebene 3** (Mod3): Alle Symbole und Klammern
 
-## Keyboard Layout Reference
+### ✅ Dead Keys
+- **Funktionieren**: `^` (Zirkumflex), `` ` `` (Gravis), `´` (Akut)
+- Beispiele: `^` + e = ê, `` ` `` + e = è, `´` + e = é
 
-### Layer 0: NEO Base Layer (Ebene 1)
+### ✅ Mod3-Tasten
+- **Caps Lock Position**: Primärer Mod3
+- **Backslash-Position** (rechts von `´`): Zweiter Mod3 für einfacheren Zugriff
+
+### ✅ Fn-Layer (Layer 3)
+- Media-Steuerung (Play, Pause, Volume)
+- RGB-Beleuchtung (Helligkeit, Farbe, Effekte)
+- Wireless-Modi (Bluetooth 1-3, 2.4GHz, USB)
+- Logo-LED-Steuerung
+
+### ✅ AVD/RDP-Kompatibilität
+- Alle AltGr-Symbole funktionieren zuverlässig in Azure Virtual Desktop, Windows RDP und Citrix
+- Spezielle Timing-Fixes für virtuelle Desktop-Umgebungen
+
+---
+
+## Bekannte Einschränkungen
+
+### ⚠️ Dead Keys
+Das deutsche Tastaturlayout unterstützt nur 3 Dead Keys. NEO 2.0 spezifiziert mehr Dead Keys auf Ebene 2 und 3, die **nicht verfügbar** sind:
+- **Ebene 2**: ˇ (Hatschek), ¸ (Cedille), ¨ (Trema)
+- **Ebene 3**: ˚ (Ring), ¯ (Makron), ˘ (Breve)
+
+Diese Positionen sind auf `KC_NO` gesetzt.
+
+### ⚠️ Großes ẞ
+Das deutsche Tastaturlayout unterstützt kein großes ẞ (U+1E9E). Auf Ebene 2 gibt die ß-Taste das kleine `ß` aus.
+
+### ⚠️ NEO Ebenen 4-6
+Nur Ebenen 1-3 sind implementiert. Ebenen 4-6 (Navigation, Griechisch, Mathematik) sind nicht verfügbar.
+
+---
+
+## Tastatur-Layouts
+
+### Ebene 1: NEO Basis
 ```
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────────┬─────┐
 │ Esc │ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │ F7  │ F8  │ F9  │ F10 │ F11 │ F12 │   Del   │Home │
@@ -43,14 +76,13 @@ Plug-and-play NEO 2.0 layout for WOB RD75. **No drivers or software required.**
 │         │     │     │     │     │     │     │     │     │     │     │     │     ⏎     │     │
 ├─────────┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴────┴─────┼─────┤
 │   Shift    │  ü  │  ö  │  ä  │  p  │  z  │  b  │  m  │  ,  │  .  │  j  │   Shift     │  ↑  │
-│            │     │     │     │     │     │     │     │     │     │     │             │     │
 ├──────┬─────┴─┬───┴──┬──┴─────┴─────┴─────┴─────┴─────┴─────┼─────┴─┬───┴──┬──────────┼─────┼─────┼─────┐
 │ Ctrl │  Win  │ Alt  │           Space                       │  Fn   │ Ctrl │          │  ←  │  ↓  │  →  │
 │      │       │      │                                       │       │      │          │     │     │     │
 └──────┴───────┴──────┴───────────────────────────────────────┴───────┴──────┴──────────┴─────┴─────┴─────┘
 ```
 
-### Layer 1: Shift Layer (Ebene 2)
+### Ebene 2: Shift (Großbuchstaben)
 ```
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────────┬─────┐
 │ Esc │ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │ F7  │ F8  │ F9  │ F10 │ F11 │ F12 │   Del   │Home │
@@ -66,12 +98,13 @@ Plug-and-play NEO 2.0 layout for WOB RD75. **No drivers or software required.**
 │   Shift    │  Ü  │  Ö  │  Ä  │  P  │  Z  │  B  │  M  │  –  │  •  │  J  │   Shift     │  ↑  │
 ├──────┬─────┴─┬───┴──┬──┴─────┴─────┴─────┴─────┴─────┴─────┼─────┴─┬───┴──┬──────────┼─────┼─────┼─────┐
 │ Ctrl │  Win  │ Alt  │           Space                       │  Fn   │ Ctrl │          │  ←  │  ↓  │  →  │
+│      │       │      │                                       │       │      │          │     │     │     │
 └──────┴───────┴──────┴───────────────────────────────────────┴───────┴──────┴──────────┴─────┴─────┴─────┘
 
-(1) Capital ẞ not available in German layout - outputs lowercase ß instead
+(1) Großes ẞ nicht verfügbar – gibt kleines ß aus
 ```
 
-### Layer 2: Mod3 Symbols (Ebene 3)
+### Ebene 3: Mod3 (Symbole)
 ```
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────────┬─────┐
 │ Esc │ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │ F7  │ F8  │ F9  │ F10 │ F11 │ F12 │   Del   │Home │
@@ -79,21 +112,21 @@ Plug-and-play NEO 2.0 layout for WOB RD75. **No drivers or software required.**
 │     │     │  ²  │  ³  │     │     │     │     │     │     │     │     │     │ ⌫ Bkspc │ End │
 ├─────┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──────┼─────┤
 │        │     │  _  │  [  │  ]  │  ^  │  !  │  <  │  >  │  =  │  &  │     │  /  │ Mod3 │PgUp │
-│        │     │     │     │     │ (2) │     │     │     │     │     │     │     │      │     │
+│        │     │     │     │     │     │     │     │     │     │     │     │     │      │     │
 ├────────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴──────┼─────┤
 │  Mod3   │  \  │  /  │  {  │  }  │  *  │  ?  │  (  │  )  │  -  │  :  │  @  │   Enter   │PgDn │
 │         │     │     │     │     │     │     │     │     │     │     │     │     ⏎     │     │
 ├─────────┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴────┴─────┼─────┤
 │   Shift    │  #  │  $  │  |  │  ~  │  `  │  +  │  %  │  "  │  '  │  ;  │   Shift     │  ↑  │
-│            │     │     │     │     │ (2) │     │     │     │     │     │             │     │
+│            │     │     │     │     │     │     │     │     │     │     │             │     │
 ├──────┬─────┴─┬───┴──┬──┴─────┴─────┴─────┴─────┴─────┴─────┼─────┴─┬───┴──┬──────────┼─────┼─────┼─────┐
 │ Ctrl │  Win  │ Alt  │           Space                       │  Fn   │ Ctrl │          │  ←  │  ↓  │  →  │
+│      │       │      │                                       │       │      │          │     │     │     │
 └──────┴───────┴──────┴───────────────────────────────────────┴───────┴──────┴──────────┴─────┴─────┴─────┘
 
-(2) Outputs literal character immediately (not dead key) - see Dead Keys section
 ```
 
-### Layer 3: Function Layer (Fn)
+### Layer 3: Fn (Funktionen)
 ```
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────────┬─────┐
 │     │Bri- │Bri+ │Mail │Calc │Calc │Media│Prev │Play │Next │Mute │Vol- │Vol+ │RGB Togl │     │
@@ -107,94 +140,100 @@ Plug-and-play NEO 2.0 layout for WOB RD75. **No drivers or software required.**
 │         │     │     │RGB- │RGB+ │     │     │     │     │     │Logo │Logo │ RGB Hue+  │RGB  │
 │         │     │     │ Val │ Val │     │     │     │     │     │Sat- │Sat+ │           │Sat- │
 ├─────────┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴────┴─────┼─────┤
-│            │     │     │     │     │     │6xN  │     │     │     │     │Logo Hue+    │RGB+ │
-│            │     │     │     │     │     │     │     │     │     │     │             │ Val │
+│            │     │     │     │     │     │NKRO │     │     │     │     │Logo Hue+    │RGB+ │
+│            │     │     │     │     │     │Togl │     │     │     │     │             │ Val │
 ├──────┬─────┴─┬───┴──┬──┴─────┴─────┴─────┴─────┴─────┴─────┼─────┴─┬───┴──┬──────────┼─────┼─────┼─────┐
 │Test  │WL Off │      │        Logo Mode                      │  Fn   │      │          │RGB  │RGB- │RGB  │
 │Color │       │      │                                       │       │      │          │Spd- │ Val │Spd+ │
 └──────┴───────┴──────┴───────────────────────────────────────┴───────┴──────┴──────────┴─────┴─────┴─────┘
 
-Wireless Modes: BLE1/BLE2/BLE3 = Bluetooth devices 1-3, 2.4G = 2.4GHz wireless, USB = wired mode
-RGB Controls: Brightness, Saturation, Hue, Speed, Mode cycling
-Logo Controls: Separate RGB controls for keyboard logo LED
-6xN: Toggle NKRO (N-Key Rollover) - switches between 6-key mode (compatible) and full NKRO (unlimited keys)
+Wireless: BLE1/2/3 = Bluetooth 1-3, 2.4G = 2.4GHz, USB = Kabel
+RGB: Helligkeit, Sättigung, Farbton, Geschwindigkeit, Modus
+Logo: Separate RGB-Steuerung für Logo-LED
+NKRO: Umschalten zwischen 6-Key (kompatibel) und Full NKRO (unbegrenzt)
 ```
 
-**Legend:**
-- `dead` = Dead key (combine with letter for accents: ^+e=ê, `+e=è, ´+e=é)
-- `Mod3` = Layer 2 modifier (Caps Lock position or backslash key)
-- `Fn` = Layer 3 modifier (right of spacebar)
-- `⌫` = Backspace
-- `⏎` = Enter
-- `⇥` = Tab forward
-- `⇤` = Tab backward
+**Legende:**
+- `dead` = Dead Key (kombiniert mit Buchstaben: ^+e=ê, `+e=è, ´+e=é)
+- `Mod3` = Ebene 3 Modifier (Caps Lock oder Backslash-Taste)
+- `Fn` = Layer 3 Modifier (rechts von Leertaste)
+- `⌫` = Backspace, `⏎` = Enter, `⇥` = Tab vorwärts, `⇤` = Tab rückwärts
 
-## Dead Keys
-
-**IMPORTANT**: German keyboard layout only supports 3 dead keys on Layer 0:
-- `^` (Circumflex) + a → â, e → ê
-- `` ` `` (Grave) + e → è, a → à  
-- `´` (Acute) + e → é, a → á
-
-**Limitations**: 
-1. NEO 2.0 specifies additional dead keys on Layer 1 (Shift) and Layer 2 (Mod3) that are **not available** in the German keyboard layout:
-   - Layer 1: ˇ (Caron), ¸ (Cedilla), ¨ (Trema) - **not functional**
-   - Layer 2: ˚ (Ring), ¯ (Macron), ˘ (Breve) - **not functional**
-   - These positions are set to `KC_NO` to avoid confusion.
-
-2. **Capital ẞ not available**: The German keyboard layout does not support the capital ẞ (U+1E9E). On Layer 1 (Shift), the ß key outputs lowercase `ß` instead of uppercase `ẞ`. This is a limitation of the standard German keyboard layout.
-
-If you need these dead keys or capital ẞ, you would need to use a full NEO driver installation instead of this plug-and-play firmware.
-
-## Features
-
-✅ 3 NEO layers (Ebenen 1-3) implemented  
-✅ 3 dead keys (^, `, ´) for accented characters on Layer 0  
-⚠️ Additional NEO dead keys not available (German layout limitation)  
-⚠️ Capital ẞ not available (outputs lowercase ß instead)  
-✅ Second Mod3 key on backslash position for easier access  
-✅ Superscripts ²³ (Layer 2)  
-✅ All brackets and symbols  
-✅ Function layer for keyboard controls  
-✅ No software installation needed  
-✅ Works on locked-down systems (AVD/Citrix)
+---
 
 ## Installation
 
-### Build
+### Voraussetzungen
+- **OS-Tastaturlayout**: Deutsch (Deutschland)
+  - Windows: Deutsch (Deutschland)
+  - macOS: German - Standard
+  - Linux: German (de)
+
+### Firmware kompilieren
 ```bash
 qmk compile -kb wob/rd75 -km neo-de
 ```
 
-### Flash
+Die kompilierte Firmware befindet sich in: `wob_rd75_neo-de.bin`
+
+### Firmware flashen
+
+**Einfache Methode (macOS/Windows/Linux):**
+1. Bluetooth ausschalten (kleiner Schalter unter CapsLock)
+2. ESC-Taste gedrückt halten
+3. USB-Kabel einstecken
+4. Nach 3 Sekunden ESC loslassen
+5. "No Name" Gerät wird gemountet
+6. `wob_rd75_neo-de.bin` auf das gemountete Gerät kopieren
+7. Tastatur flasht automatisch
+
+**Alternative (Kommandozeile):**
 ```bash
-# 1. Enter bootloader: Hold ESC while plugging USB
-# 2. Flash:
+# Erst Bootloader-Modus aktivieren (Schritte oben), dann:
 dfu-util -d 36b0:3003 -a 0 -D wob_rd75_neo-de.bin
 ```
 
-## Troubleshooting
+### Troubleshooting
 
-**Wrong characters appearing?**
-→ Verify OS layout is **German - Standard** (not Swiss/Austrian variant)
+**Falsche Zeichen?**
+→ OS-Layout auf **Deutsch (Deutschland)** prüfen (nicht Schweiz/Österreich)
 
-**Double keystrokes appearing?**
-→ This firmware includes a fix for the manufacturer's debounce bug. If you experience double keystrokes with the original firmware, this NEO-DE keymap includes the corrected `DEBOUNCE 5` setting (manufacturer default was too aggressive at 2ms).
+**Doppelte Tastenanschläge?**
+→ Diese Firmware behebt den Debounce-Bug des Herstellers (DEBOUNCE 5 statt 2)
 
-**Using in AVD/Citrix/RDP environments?**
-→ This firmware includes timing fixes for virtual desktop environments. All AltGr symbols (@ € [ ] { } | ~ \ ² ³) work reliably in Azure Virtual Desktop, Windows RDP, and Citrix by adding 20ms delays around modifier keys to compensate for RDP protocol timing issues.
+**AVD/Citrix/RDP?**
+→ Alle AltGr-Symbole (@ € [ ] { } | ~ \ ² ³) funktionieren zuverlässig durch spezielle Timing-Fixes
 
-## Technical Details
+---
 
-- **Firmware Size**: 71,000 bytes
-- **VIA**: Enabled
-- **Layers**: 4 (0-3)
-- **Dead Keys**: 3 dead keys (^, `, ´) on Layer 0 only
-- **Limitations**: 
-  - German layout does not support all NEO dead keys
-  - Capital ẞ not available (outputs lowercase ß)
-  - Backslash key remapped to second Mod3
+## Technische Details
 
-## License
+- **Firmware-Größe**: 71.476 Bytes
+- **Layers**: 4 (Ebenen 1-3 + Fn-Layer)
+- **Dead Keys**: 3 (^, `, ´) auf Ebene 1
+- **Mod3-Tasten**: 2 (Caps Lock + Backslash)
+- **Debounce**: 5ms (Herstellerfehler korrigiert)
+- **AVD/RDP**: Timing-Fixes für virtuelle Desktops
+
+---
+
+## Lizenz
 
 GPL-2.0 (QMK)
+
+---
+
+## Entwicklung
+
+Dieses Projekt ist ein Fork von [womierkeyboard/RD75](https://github.com/womierkeyboard/RD75), speziell angepasst für NEO 2.0.
+
+**Besonderheiten dieser Implementation:**
+- Nutzt natives deutsches Tastaturlayout (keine Treiber erforderlich)
+- AVD/RDP-kompatibel durch spezielle Timing-Delays
+- Zweiter Mod3-Key für bessere Ergonomie
+- Debounce-Fix für zuverlässige Tastenanschläge
+
+**Credits:**
+- Original RD75 Firmware: [womierkeyboard/RD75](https://github.com/womierkeyboard/RD75)
+- NEO Layout Implementation: Christian Schneidewind
+- QMK Framework: QMK Contributors
